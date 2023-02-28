@@ -30,22 +30,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>会員登録|ラクラクカレー</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
-              <img class="logo" src="img/header_logo.png" />
+            <a th:href="@{/showList}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="login.html" class="login">
+            <a th:href="@{/showList}">商品一覧</a>
+            <a th:href="@{/registerAdmin}">会員登録</a>
+            <a th:href="@{/loginAndLogout}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
           </div>
@@ -55,28 +55,29 @@
     <div class="top-wrapper">
       <div class="container">
         <div class="row register-page">
+        <form th:action="@{/registerAdmin/registerUser}" method="post">
           <div class="error">名前を入力して下さい</div>
           <div class="row">
             <div class="input-field col s6">
-              <input id="last_name" type="text" class="validate" required />
+              <input id="last_name" type="text" name="lastName" class="validate" required />
               <label for="last_name">姓</label>
             </div>
             <div class="input-field col s6">
-              <input id="first_name" type="text" class="validate" required />
+              <input id="first_name" type="text" name="firstName" class="validate" required />
               <label for="first_name">名</label>
             </div>
           </div>
           <div class="error">メールアドレスの形式が不正です</div>
           <div class="row">
             <div class="input-field col s12">
-              <input id="email" type="email" class="validate" required />
+              <input id="email" type="email" name="email" class="validate" required />
               <label for="email">メールアドレス</label>
             </div>
           </div>
           <div class="error">郵便番号はXXX-XXXXの形式で入力してください</div>
           <div class="row">
             <div class="input-field col s12">
-              <input id="zipcode" type="text" maxlength="8" />
+              <input id="zipcode" type="text" name="zipcode" maxlength="8" />
               <label for="zipcode">郵便番号</label>
               <button class="btn" type="button">
                 <span>住所検索</span>
@@ -86,7 +87,7 @@
           <div class="error">住所を入力して下さい</div>
           <div class="row">
             <div class="input-field col s12">
-              <input id="address" type="text" />
+              <input id="address" type="text" name="address"/>
               <label for="address">住所</label>
             </div>
           </div>
@@ -95,7 +96,7 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <input id="tel" type="tel" />
+              <input id="tel" type="tel" name="telephone"/>
               <label for="tel">電話番号</label>
             </div>
           </div>
@@ -107,6 +108,7 @@
               <input
                 id="password"
                 type="password"
+                name="password"
                 class="validate"
                 minlength="8"
                 required
@@ -120,6 +122,7 @@
               <input
                 id="confirmation_password"
                 type="password"
+             	name="confirmationPassword"
                 class="validate"
                 minlength="8"
                 required
@@ -135,6 +138,8 @@
             >
               <span>登録<i class="material-icons right">done</i></span>
             </button>
+            <button class="btn" type="reset">クリア</button>
+            </form>
           </div>
         </div>
       </div>
@@ -143,8 +148,8 @@
     <!-- end top-wrapper -->
     <footer>
       <div class="container">
-        <img src="img/header_logo.png" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <img th:src="@{/img/header_logo.png}" />
+        <p>ピリッとスパイシーな気分をあなたにお届け！</p>
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
