@@ -1,5 +1,7 @@
 package com.example.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -43,8 +45,12 @@ public class UserRepository {
 	public User findByEmail(String email) {
 		String sql = "SELECT id, name, email, password, zipcode, address, telephone FROM users WHERE email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
-		User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
-		return user;
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if(userList.size()==0) {
+			return null;
+		}
+		
+		return userList.get(0);
 	}
 
 	/**
