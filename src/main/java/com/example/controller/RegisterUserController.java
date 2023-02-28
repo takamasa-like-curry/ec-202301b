@@ -30,7 +30,7 @@ public class RegisterUserController {
 	 */
 	@GetMapping("")
 	public String index() {
-		return "register-admin";
+		return "register_admin";
 	}
 
 	/**
