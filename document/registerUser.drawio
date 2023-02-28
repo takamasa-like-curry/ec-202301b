@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="3ZI9yJNvnaPlXbGqqHri" name="ページ1">
-        <mxGraphModel dx="1400" dy="522" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1557" dy="522" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -24,8 +24,8 @@
                 <mxCell id="15" value="&lt;font style=&quot;&quot;&gt;&amp;lt;model/Repository&amp;gt;&lt;br style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;UserRepository&lt;/font&gt;&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;fontSize=12;startSize=40;" parent="1" vertex="1">
                     <mxGeometry x="710" y="210" width="300" height="110" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" value="+ findByEmail(email: String):User&lt;br style=&quot;font-size: 13px;&quot;&gt;+ insert(registerUserForm: RegisterUserForm):void" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=13;" parent="15" vertex="1">
-                    <mxGeometry x="-10" y="50" width="320" height="40" as="geometry"/>
+                <mxCell id="16" value="+ findByEmail(email: String):User&lt;br style=&quot;font-size: 13px;&quot;&gt;+ insert(user: User):void" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=13;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="50" width="220" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="25" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;dashed=1;fontSize=15;" parent="1" source="23" edge="1">
                     <mxGeometry relative="1" as="geometry">
