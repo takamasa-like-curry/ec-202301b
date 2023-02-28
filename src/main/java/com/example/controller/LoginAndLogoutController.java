@@ -37,7 +37,7 @@ public class LoginAndLogoutController {
 	/**
 	 * ログインを行う.
 	 * 
-	 * @param form ログイン情報を受け取るフォーム
+	 * @param form  ログイン情報を受け取るフォーム
 	 * @param model モデル
 	 * @return 該当ユーザーがある場合：商品一覧画面。該当ユーザーがない場合：ログイン画面(エラーメッセージ表示)
 	 */
@@ -50,8 +50,14 @@ public class LoginAndLogoutController {
 		}
 
 		session.setAttribute("status", "login");
-		session.setAttribute("name", user.getName());
+		session.setAttribute("user", user);
 
-		return "";
+		return "forward:/showList";
+	}
+
+	@GetMapping("/logout")
+	public String logout() {
+		session.removeAttribute(null);
+		return "forward:/showList";
 	}
 }
