@@ -81,9 +81,11 @@
               <img th:src="@{/img/}+${item.imagePath}">
             </div>
             <a href="item_detail.html"
-            th:text="${item.name}">ハワイアンパラダイス</a><br />
-            <span th:text="${item.priceM}">Ｍ</span>円(税抜)<br />
-            <span th:text="${item.priceL}">Ｌ</span>円(税抜)<br />
+            th:text="${item.name}">カレー</a><br />
+            <span>
+          <span class="price">Ｍ</span><span th:text="${item.priceM}"></span>円(税抜)<br />
+          <span class="price">Ｌ</span><span th:text="${item.priceL}"></span>円(税抜)<br />
+           </span>
           </div>
          </div>
         </div>
@@ -93,7 +95,7 @@
     <footer>
       <div class="container">
         <img src="img/header_logo.png" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <p>ピリッとスパイシーな気分をあなたにお届け！</p>
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
