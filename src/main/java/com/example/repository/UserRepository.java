@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.User;
-import com.example.form.RegisterUserForm;
 
 /**
  * usersテーブルを操作するリポジトリ.
@@ -53,9 +52,9 @@ public class UserRepository {
 	 * 
 	 * @param registerUserForm フォーム
 	 */
-	public void insert(RegisterUserForm registerUserForm) {
+	public void insert(User user) {
 		String sql = "INSERT INTO users(name, email, password, zipcode, address, telephone) VALUES(:name, :email, :password, :zipcode, :address, :telephone);";
-		SqlParameterSource param = new BeanPropertySqlParameterSource(registerUserForm);
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		template.update(sql, param);
 	}
 }
