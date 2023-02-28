@@ -49,7 +49,6 @@ public class LoginAndLogoutController {
 			return toLogin(form);
 		}
 
-		session.setAttribute("status", "login");
 		session.setAttribute("user", user);
 
 		return "forward:/showList";
