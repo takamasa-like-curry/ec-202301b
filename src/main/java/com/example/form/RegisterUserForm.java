@@ -1,5 +1,10 @@
 package com.example.form;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 /**
  * ユーザー登録の際に使用されるフォーム.
  * 
@@ -7,22 +12,34 @@ package com.example.form;
  *
  */
 public class RegisterUserForm {
-
+	
 	/** 姓 */
+	@NotBlank(message = "姓を入力してください")
 	private String lastName;
 	/** 名 */
+	@NotBlank(message = "名を入力してください")
 	private String firstName;
 	/** メールアドレス */
+	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "メールアドレスの形式が不正です")
 	private String email;
 	/** 郵便番号 */
+	@NotBlank(message = "郵便番号を入力してください")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
 	private String zipcode;
 	/** 住所 */
+	@NotBlank(message = "住所を入力してください")
 	private String address;
 	/** 電話番号 */
+	@NotBlank(message="電話番号を入力してください")
+	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String telephone;
 	/** パスワード */
+	@NotBlank(message="パスワードを入力してください")
+	@Size(min = 8, max = 16, message = "パスワードは8文字以上16文字以内で設定してください")
 	private String password;
 	/** 確認用パスワード */
+	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmationPassword;
 
 	public String getLastName() {

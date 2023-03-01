@@ -2,6 +2,9 @@ package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +32,7 @@ public class RegisterUserController {
 	 * @return 会員登録ページ
 	 */
 	@GetMapping("")
-	public String index() {
+	public String index(Model model, RegisterUserForm registerUserForm) {
 		return "register_admin";
 	}
 
@@ -39,19 +42,25 @@ public class RegisterUserController {
 	 * @return
 	 */
 	@PostMapping("/registerUser")
-	public String registerUser(RegisterUserForm registerUserForm) {
+	public String registerUser(@Validated RegisterUserForm registerUserForm, BindingResult result, Model model) {
 
 		// 登録済みEmailを確認する
 		User user = registerUserService.searchByEmail(registerUserForm.getEmail());
-		if (user == null) {
-			// エラーメッセージ
+		if (user != null) {
+			result.rejectValue("email", null, "すでに登録されているメールアドレスです");
 		}
 
 		// パスワードと確認用パスワードが一致しているか確認する
-		if (registerUserForm.getPassword().equals(registerUserForm.getConfirmationPassword())) {
-			// エラーメッセージ
+		if (!(registerUserForm.getPassword().equals(registerUserForm.getConfirmationPassword()))) {
+			result.rejectValue("confirmationPassword", null, "パスワードと確認用パスワードが不一致です");
 		}
 
+		//エラーメッセージの表示・入力情報の保持
+		if(result.hasErrors()) {
+			return index(model, registerUserForm);
+		}
+		
+		//ユーザー登録処理
 		registerUserService.registerUser(registerUserForm);
 
 		return "forward:/LoginAndLogout";
