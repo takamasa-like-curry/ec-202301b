@@ -1,0 +1,48 @@
+package com.example.repository;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
+
+import com.example.domain.OrderTopping;
+
+/**
+ * order_toppingsテーブル操作するリポジトリ.
+ * 
+ * @author hayashiasuka
+ *
+ */
+@Repository
+public class OrderToppingRepository {
+
+	@Autowired
+	private NamedParameterJdbcTemplate template;
+
+	private static final String TABLE_NAME = "order_toppings";
+	private static final RowMapper<OrderTopping> ORDERTOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(
+			OrderTopping.class);
+
+	/**
+	 * 注文商品IDから注文トッピングを取得する.
+	 * 
+	 * @param orderItemId 注文商品ID
+	 * @return 検索された注文トッピング
+	 */
+	public List<OrderTopping> findByOrderItemId(Integer orderItemId) {
+
+		String sql = "SELECT id, topping_id, order_item_id FROM " + TABLE_NAME + " WHERE order_item_id=:orderItemId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
+
+		List<OrderTopping> orderToppingList = template.query(sql, param, ORDERTOPPING_ROW_MAPPER);
+
+		return orderToppingList;
+
+	}
+
+}
