@@ -36,11 +36,8 @@ public class ShowItemListCotroller {
 		if (itemList.isEmpty()) { 
 			String message = "該当する商品がありません";
 			model.addAttribute("errorMessage", message);
-	//nameをnullにして、Serviceクラスの全件検索を呼び出し、商品全件の情報が入ったallItemsをmodelに渡す
-			name = null;
-			List<Item> allItems = showItemListService.showItemList(name);
-			model.addAttribute("itemList", allItems);
-			return "item_list";
+	//nameをnullにして、Serviceクラスの全件検索を呼び出し、商品全件の情報が入ったItemListをmodelに渡す
+			itemList = showItemListService.showItemList(null);
 		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";
