@@ -23,12 +23,6 @@ public class User {
 	/** 電話番号 */
 	private String telephone;
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipcode="
-				+ zipcode + ", address=" + address + ", telephone=" + telephone + "]";
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -83,6 +77,12 @@ public class User {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipcode="
+				+ zipcode + ", address=" + address + ", telephone=" + telephone + "]";
 	}
 
 }
