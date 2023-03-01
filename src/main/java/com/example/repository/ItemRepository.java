@@ -28,8 +28,8 @@ public class ItemRepository {
 	 * 商品に一覧を表示します
 	 * @return　一覧情報
 	 */
-	List<Item> findAll(){
-		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted From items;";
+	public List<Item> findAll(){
+		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted From items ORDER BY price_m ASC;";
 		List<Item> itemList=template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
@@ -38,7 +38,8 @@ public class ItemRepository {
 	 * @param name
 	 * @return　曖昧検索後の一覧情報
 	 */
-	public List<Item> searchByNameFuzzy(String name){
+	public List<Item> load(String name){
+		
 		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE name LIKE :name ORDER BY price_m ASC;";
 		SqlParameterSource param=new MapSqlParameterSource().addValue("name","%"+name+"%");
 		List<Item> itemList=template.query(sql,param,ITEM_ROW_MAPPER);
