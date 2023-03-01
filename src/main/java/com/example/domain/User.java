@@ -1,18 +1,18 @@
 package com.example.domain;
 
 /**
- * ユーザー情報を表すドメイン.
+ * ユーザー情報を扱うクラス.
  * 
- * @author hayashiasuka
+ * @author sugaharatakamasa
  *
  */
 public class User {
 
-	/** ID */
+	/** ユーザーID(自動採番) */
 	private Integer id;
-	/** 名前 */
+	/** ユーザー名 */
 	private String name;
-	/** Eメール */
+	/** メールアドレス */
 	private String email;
 	/** パスワード */
 	private String password;
@@ -20,7 +20,7 @@ public class User {
 	private String zipcode;
 	/** 住所 */
 	private String address;
-	/** 電話番号*/
+	/** 電話番号 */
 	private String telephone;
 
 	public Integer getId() {
