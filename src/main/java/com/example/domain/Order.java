@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,24 @@ public class Order {
 	private User user;
 	/** 注文商品のリスト */
 	private List<OrderItem> orderItemList;
+	/** 宛先氏名 */
+	private String destinationName;
+	/** 宛先メールアドレス */
+	private String destinationEmail;
+	/** 宛先郵便番号 */
+	private String destinationZipcode;
+	/** 宛先住所 */
+	private String destinationAddress;
+	/** 宛先電話番号 */
+	private String destinationTel;
+	/** 配達日 */
+	private java.sql.Date deliveryDate;
+	/** 配達時間 */
+	private LocalDateTime deliveryTime;
+	/** 支払い方法 */
+	private Integer paymentMethod;
+	
+	
 
 	/**
 	 * 注文商品のリストに入っている小計金額の合計を算出する.
