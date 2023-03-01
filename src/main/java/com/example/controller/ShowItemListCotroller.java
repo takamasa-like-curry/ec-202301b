@@ -30,8 +30,15 @@ public class ShowItemListCotroller {
 	 * @retur 商品一覧に遷移します
 	 */
 	@GetMapping("/showList")
-	public String showList(Model model) {
-		List<Item> itemList = showItemListService.showItemList();
+	public String showList(Model model, String name) {
+		List<Item> itemList = showItemListService.showItemList(name);
+	//アイテムリストが空だった場合
+		if (itemList.isEmpty()) { 
+			String message = "該当する商品がありません";
+			model.addAttribute("message", message);
+	//nameをnullにして、Serviceクラスの全件検索を呼び出し、商品全件の情報が入ったItemListをmodelに渡す
+			itemList = showItemListService.showItemList(null);
+		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";
 	}
