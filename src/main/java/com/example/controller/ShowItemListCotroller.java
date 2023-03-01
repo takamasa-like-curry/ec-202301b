@@ -35,7 +35,7 @@ public class ShowItemListCotroller {
 	//アイテムリストが空だった場合
 		if (itemList.isEmpty()) { 
 			String message = "該当する商品がありません";
-			model.addAttribute("errorMessage", message);
+			model.addAttribute("message", message);
 	//nameをnullにして、Serviceクラスの全件検索を呼び出し、商品全件の情報が入ったItemListをmodelに渡す
 			itemList = showItemListService.showItemList(null);
 		}

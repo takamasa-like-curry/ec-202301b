@@ -60,8 +60,8 @@
     <!-- search form -->
     <div class="search-wrapper">
       <div class="container">
-      <div th:if="${errorMessage}" >
-      <p class="errorMessage" th:text="${errorMessage}">該当商品がありません</p>
+      <div th:if="${message}" >
+      <p class="message" th:text="${message}">該当商品がありません</p>
       </div>
         <form name="name" class="search-form" th:action="@{/showList}">
           <input type="text" name="name" class="search-name-input"  />
