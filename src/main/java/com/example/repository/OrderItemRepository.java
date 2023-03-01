@@ -27,6 +27,7 @@ public class OrderItemRepository {
 	private static final String TABLE_NAME = "order_items";
 	private static final RowMapper<OrderItem> ORDERITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(OrderItem.class);
 
+	//【6】注文確認画面表示
 	/**
 	 * 注文IDから注文商品を取得する.
 	 * 

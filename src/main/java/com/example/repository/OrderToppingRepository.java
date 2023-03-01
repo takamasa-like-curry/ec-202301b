@@ -28,6 +28,7 @@ public class OrderToppingRepository {
 	private static final RowMapper<OrderTopping> ORDERTOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(
 			OrderTopping.class);
 
+	//【6】注文確認画面表示
 	/**
 	 * 注文商品IDから注文トッピングを取得する.
 	 * 

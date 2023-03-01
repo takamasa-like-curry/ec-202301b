@@ -25,6 +25,7 @@ public class OrderRepository {
 	private static final String TABLE_NAME = "orders";
 	private static final RowMapper<Order> ORDER_ROW_MAPPER = new BeanPropertyRowMapper<>(Order.class);
 
+	//【6】注文確認画面表示
 	/**
 	 * 主キーで注文情報を取得する.
 	 * 
