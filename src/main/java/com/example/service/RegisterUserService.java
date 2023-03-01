@@ -25,7 +25,7 @@ public class RegisterUserService {
 	/**
 	 * ユーザー登録を行う.
 	 * 
-	 * @param registerUserForm
+	 * @param registerUserForm　フォーム
 	 */
 	public void registerUser(RegisterUserForm registerUserForm) {
 
@@ -38,18 +38,14 @@ public class RegisterUserService {
 	}
 
 	/**
-	 * 入力されたEmailがすでに登録されているか確認する.
+	 * メールアドレスからユーザー情報を取得する.
 	 * 
-	 * @param email
-	 * @return
+	 * @param email メールアドレス
+	 * @return 検索されたユーザー情報
 	 */
 	public User searchByEmail(String email) {
 		User user = userRepository.findByEmail(email);
-		if (email.equals(user.getEmail())) {
-			return user;
-		} else {
-			return null;
-		}
+		return user;
 	}
 
 }
