@@ -83,7 +83,7 @@
             <div class="item-icon">
               <img th:src="@{/img/}+${item.imagePath}">
             </div>
-            <a href="item_detail.html"
+            <a th:href="@{'/showDetail?id='+${item.id}}"
             th:text="${item.name}">カレー</a><br />
             <span>
           <span class="price">Ｍ</span><span th:text="${item.priceM}"></span>円(税抜)<br />
