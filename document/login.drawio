@@ -1,0 +1,78 @@
+<mxfile host="65bd71144e">
+    <diagram id="Bb7Tf-q2ymXEfP7RqflR" name="ページ1">
+        <mxGraphModel dx="1360" dy="381" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="23" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="2" target="19" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="2" target="20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;dashed=1;" parent="1" source="2" target="8" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" source="2" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=none;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;" parent="1" source="2" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&amp;lt;&amp;lt;controller/controller&amp;gt;&amp;gt;&lt;br&gt;LoginContainer" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="170" width="220" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="login(user User) : User" style="text;strokeColor=none;align=left;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;horizontal=1;" vertex="1" parent="2">
+                    <mxGeometry y="40" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" parent="1" source="7" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.012;entryY=0.32;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;" parent="1" source="7" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&amp;lt;&amp;lt;model/service&amp;gt;&amp;gt;&lt;br&gt;LoginService" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="170" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&amp;lt;&amp;lt;controller/form&amp;gt;&amp;gt;&lt;br&gt;LoginForm" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="90" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&amp;lt;&amp;lt;model/repository&amp;gt;&amp;gt;&lt;br&gt;UserRepository" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="180" width="280" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=none;html=1;" parent="9" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint y="60" as="sourcePoint"/>
+                        <mxPoint x="280" y="60.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="findByEmail(email : String) : User" style="text;strokeColor=none;align=left;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;horizontal=1;" parent="9" vertex="1">
+                    <mxGeometry y="60" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&amp;lt;&amp;lt;model/domain&amp;gt;&amp;gt;&lt;br&gt;User" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="260" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&amp;lt;&amp;lt;view&amp;gt;&amp;gt;&lt;br&gt;login.html" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="-210" y="170" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="&amp;lt;&amp;lt;view&amp;gt;&amp;gt;&lt;br&gt;item_list_curry.html" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="-210" y="250" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&amp;lt;&amp;lt;view&amp;gt;&amp;gt;&lt;br&gt;register_user.html" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="-210" y="330" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="endArrow=classic;html=1;entryX=0.005;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="2" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-10" y="210" as="sourcePoint"/>
+                        <mxPoint x="40" y="160" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=none;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;dashed=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="12" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="580" y="300" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
