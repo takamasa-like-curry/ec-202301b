@@ -74,7 +74,7 @@
             th:object="${addItemForm}"
             method="post"
           >
-            <input type="hidden" name="itemId" th:value="${item.id}" />
+            <!-- <input type="hidden" name="itemId" th:value="${item.id}" /> -->
             <div class="row item-size">
               <div class="item-hedding">サイズ</div>
               <div class="error" th:errors="*{size}"></div>
