@@ -38,12 +38,22 @@ public class ItemRepository {
 	 * @param name
 	 * @return　曖昧検索後の一覧情報
 	 */
-	public List<Item> load(String name){
+	public List<Item> findByName(String name){
 		
 		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE name LIKE :name ORDER BY price_m ASC;";
 		SqlParameterSource param=new MapSqlParameterSource().addValue("name","%"+name+"%");
 		List<Item> itemList=template.query(sql,param,ITEM_ROW_MAPPER);
 		return itemList;
 	}
-	
+	/**
+	 * 商品を主キー検索します
+	 * @param id
+	 * @return　
+	 */
+	public Item load(Integer id){
+		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE id;";
+		SqlParameterSource param=new MapSqlParameterSource().addValue("id",id);
+		Item item=template.queryForObject(sql, param,ITEM_ROW_MAPPER);
+		return item;
+	}
 }
