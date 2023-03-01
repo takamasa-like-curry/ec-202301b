@@ -36,7 +36,8 @@ public class UserRepository {
 	 * @return 検索されたユーザー情報
 	 */
 	public User findByEmail(String email) {
-		String sql = "SELECT id, name, email, password, zipcode, address, telephone FROM TABLE_NAME WHERE email=:email;";
+		String sql = "SELECT id, name, email, password, zipcode, address, telephone FROM " + TABLE_NAME
+				+ " WHERE email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		if (userList.size() == 0) {
@@ -52,7 +53,7 @@ public class UserRepository {
 	 * @param registerUserForm フォーム
 	 */
 	public void insert(User user) {
-		String sql = "INSERT INTO users(name, email, password, zipcode, address, telephone) VALUES(:name, :email, :password, :zipcode, :address, :telephone);";
+		String sql = "INSERT INTO " + TABLE_NAME + " (name, email, password, zipcode, address, telephone) VALUES(:name, :email, :password, :zipcode, :address, :telephone);";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		template.update(sql, param);
 	}

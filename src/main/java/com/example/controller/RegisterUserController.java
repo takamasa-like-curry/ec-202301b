@@ -20,7 +20,7 @@ import com.example.service.RegisterUserService;
  *
  */
 @Controller
-@RequestMapping("/registerAdmin")
+@RequestMapping("/registerUser")
 public class RegisterUserController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class RegisterUserController {
 	 */
 	@GetMapping("")
 	public String index(Model model, RegisterUserForm registerUserForm) {
-		return "register_admin";
+		return "register_user";
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class RegisterUserController {
 		//ユーザー登録処理
 		registerUserService.registerUser(registerUserForm);
 
-		return "forward:/LoginAndLogout";
+		return "redirect:/loginAndLogout";
 
 	}
 
