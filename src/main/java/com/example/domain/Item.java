@@ -2,7 +2,7 @@ package com.example.domain;
 
 import java.util.List;
 
-import com.example.repository.Topping;
+import com.example.repository.ToppingRepository;
 
 /**
  * カレーを表すドメイン.
@@ -27,7 +27,7 @@ public class Item {
 	/** 削除フラグ */
 	private Boolean deleted;
 	/** トッピングリスト */
-	private List<Topping> toppingList;
+	private List<ToppingRepository> toppingList;
 
 	public Integer getId() {
 		return id;
@@ -85,11 +85,11 @@ public class Item {
 		this.deleted = deleted;
 	}
 
-	public List<Topping> getToppingList() {
+	public List<ToppingRepository> getToppingList() {
 		return toppingList;
 	}
 
-	public void setToppingList(List<Topping> toppingList) {
+	public void setToppingList(List<ToppingRepository> toppingList) {
 		this.toppingList = toppingList;
 	}
 

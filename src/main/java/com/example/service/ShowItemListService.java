@@ -10,6 +10,7 @@ import com.example.repository.ItemRepository;
 
 /**
  * 商品一覧を操作するサービス.
+ * 
  * @author watanabe
  *
  */
@@ -18,13 +19,19 @@ public class ShowItemListService {
 
 	@Autowired
 	ItemRepository itemRepository;
-	
+
 	/**
 	 * 商品情報をすべて取得します.
-	 * @return　商品一覧
+	 * 
+	 * @return 商品一覧
 	 */
-	public List<Item> showItemList(){
-		List<Item> itemList= itemRepository.findAll();
+	public List<Item> showItemList(String name) {
+		
+		if (name == null) {
+			List<Item> itemList = itemRepository.findAll();
+			return itemList;
+		}
+		List<Item> itemList = itemRepository.load(name);
 		return itemList;
 	}
 }

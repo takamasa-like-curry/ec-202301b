@@ -60,10 +60,13 @@
     <!-- search form -->
     <div class="search-wrapper">
       <div class="container">
-        <form method="post" class="search-form">
-          <input type="text" name="name" class="search-name-input" />
+      <div th:if="${message}" >
+      <p class="message" th:text="${message}">該当商品がありません</p>
+      </div>
+        <form name="name" class="search-form" th:action="@{/showList}">
+          <input type="text" name="name" class="search-name-input"  />
 
-          <button class="btn search-btn" type="button">
+          <button class="btn search-btn" type="submit">
             <span>検　索</span>
           </button>
         </form>
