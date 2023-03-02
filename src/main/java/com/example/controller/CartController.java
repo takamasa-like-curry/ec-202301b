@@ -47,7 +47,7 @@ public class CartController {
 //		if (order == null) {
 //			model.addAttribute("cartStatusMessage","カート内に商品がありません");
 //		}
-		
+
 		System.out.println(order);
 
 		return "cart_list";
@@ -67,7 +67,6 @@ public class CartController {
 		order = service.addItem(form, order, userId);
 
 		session.setAttribute("order", order);
-
 		return "redirect:/cart/showCartList";
 	}
 

@@ -72,7 +72,7 @@
               </tr>
             </thead>
             <tbody>
-              <div th:each="orderItem : ${session.order}">
+              <div th:each="orderItem : ${session.order.orderItemList}">
                 <tr>
                   <td class="cart-item-name">
                     <div class="cart-item-icon">

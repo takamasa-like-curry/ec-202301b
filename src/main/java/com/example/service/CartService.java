@@ -40,6 +40,13 @@ public class CartService {
 
 	public Order addItem(AddItemForm form, Order order, Integer userId) {
 
+		System.out.println("========================");
+		System.out.println("========================");
+		System.out.println("受け取ったform");
+		System.out.println(form);
+		System.out.println("========================");
+		System.out.println("========================");
+
 		// カートがない場合
 		if (order == null) {
 			order = new Order();
@@ -59,8 +66,19 @@ public class CartService {
 		orderItem = orderItemRepository.insert(orderItem);
 		orderItem.setItem(itemRepository.loadById(itemId));
 
+		System.out.println("===========================");
+		System.out.println("===========================");
+		System.out.println("サービス内のorderItem");
+		System.out.println(orderItem);
+		System.out.println("===========================");
+		System.out.println("===========================");
+
 		List<OrderTopping> orderToppingList = new ArrayList<>();
 		if (form.getToppingIdList() != null) {
+
+			System.out.println("=======================");
+			System.out.println("トッピングリストあり");
+			System.out.println("=======================");
 			for (Integer toppingId : form.getToppingIdList()) {
 				OrderTopping orderTopping = new OrderTopping();
 				orderTopping.setToppingId(toppingId);
@@ -70,25 +88,27 @@ public class CartService {
 				orderToppingList.add(orderTopping);
 			}
 
-			orderItem.setOrderToppingList(orderToppingList);
-			order.getOrderItemList().add(orderItem);
 		}
+		orderItem.setOrderToppingList(orderToppingList);
+		List<OrderItem> orderItemList = order.getOrderItemList();
+		orderItemList.add(orderItem);
+		order.setOrderItemList(orderItemList);
 
 		return order;
 
 	}
-	
+
 	public Order pickUpOrder(Order order, Integer userId) {
-		//オーダーがまだない場合
-		if(order == null) {
+		// オーダーがまだない場合
+		if (order == null) {
 			return null;
 		}
-		
+
 		List<OrderItem> orderItemList = order.getOrderItemList();
-		for(OrderItem orderItem : orderItemList) {
+		for (OrderItem orderItem : orderItemList) {
 			orderItem.setItem(itemRepository.loadById(orderItem.getId()));
 			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
-			for(OrderTopping orderTopping : orderToppingList) {
+			for (OrderTopping orderTopping : orderToppingList) {
 				orderTopping.setTopping(toppingRepository.load(orderTopping.getId()));
 			}
 			orderItem.setOrderToppingList(orderToppingList);
@@ -96,5 +116,5 @@ public class CartService {
 		order.setOrderItemList(orderItemList);
 		return order;
 	}
-	
+
 }
