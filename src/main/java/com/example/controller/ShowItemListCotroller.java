@@ -26,8 +26,8 @@ public class ShowItemListCotroller {
 	/**
 	 * 商品情報を検索します.
 	 * 
-	 * @param model
-	 * @retur 商品一覧に遷移します
+	 * @param model モデル
+	 * @return 商品一覧に遷移します
 	 */
 	@GetMapping("/showList")
 	public String showList(Model model, String name) {

@@ -37,22 +37,22 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
+            <a href="top.html" th:href="@{/showList}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="cart_list.html">
+            <a href="item_list.html" th:href="@{/showList}">商品一覧</a>
+            <a href="register_admin.html" th:href="@{/registerUser}">会員登録</a>
+            <a href="cart_list.html" th:href="@{/showCartList}">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
-            <a href="login.html" class="login">
+            <a href="login.html" class="login" th:href="@{/loginAndLogout}">
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
-            <a href="order_history.html">注文履歴</a>
+            <a href="order_history.html" th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
         <div class="row">
           <div class="row item-detail">
             <div class="item-icon">
-              <img src="img/1.jpg" />
+              <img th:src="@{/img/}+${item.imagePath}"/>
             </div>
             <div class="item-intro" th:text="${item.description}">
               ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
