@@ -75,23 +75,39 @@
               <label for="email">メールアドレス</label>
             </div>
           </div>
-          <div class="error" th:errors="*{zipcode}">郵便番号はXXX-XXXXの形式で入力してください</div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="zipcode" type="text" name="zipcode" maxlength="8" th:field="*{zipcode}"/>
-              <label for="zipcode">郵便番号</label>
-              <button class="btn" type="button">
-                <span>住所検索</span>
-              </button>
+          
+          
+           <div class="error" th:errors="*{zipcode}">
+              郵便番号はXXX-XXXXの形式で入力してください
             </div>
-          </div>
-          <div class="error" th:errors="*{address}">住所を入力して下さい</div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="address" type="text" name="address" th:field="*{address}"/>
-              <label for="address">住所</label>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  id="zipcode"
+                  type="text"
+                  name="zipcode"
+                  maxlength="8"
+                  th:field="*{zipcode}"
+                />
+                <label for="zipcode">郵便番号</label>
+                <button id="get_address_btn"  type="button">
+                  <span>住所検索</span>
+                </button>
+              </div>
             </div>
-          </div>
+            <div class="error" th:errors="*{address}">住所を入力して下さい</div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  id="address"
+                  type="text"
+                  name="address"
+                  th:field="*{address}"
+                />
+                <label for="address" id="address_label">住所</label>
+              </div>
+            </div>
+         
           <div class="error" th:errors="*{telephone}">
             電話番号はXXXX-XXXX-XXXXの形式で入力してください
           </div>
@@ -148,6 +164,8 @@
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script th:src="@{/js/get_address.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
