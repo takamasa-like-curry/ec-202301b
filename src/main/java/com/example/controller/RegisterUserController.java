@@ -39,9 +39,9 @@ public class RegisterUserController {
 	/**
 	 * ユーザー登録を行う.
 	 * 
-	 * @return
+	 * @return ログイン画面
 	 */
-	@PostMapping("/registerUser")
+	@PostMapping("/register")
 	public String registerUser(@Validated RegisterUserForm registerUserForm, BindingResult result, Model model) {
 
 		// 登録済みEmailを確認する

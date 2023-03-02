@@ -53,7 +53,8 @@ public class UserRepository {
 	 * @param registerUserForm フォーム
 	 */
 	public void insert(User user) {
-		String sql = "INSERT INTO " + TABLE_NAME + " (name, email, password, zipcode, address, telephone) VALUES(:name, :email, :password, :zipcode, :address, :telephone);";
+		String sql = "INSERT INTO " + TABLE_NAME
+				+ " (name, email, password, zipcode, address, telephone) VALUES(:name, :email, :password, :zipcode, :address, :telephone);";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		template.update(sql, param);
 	}
