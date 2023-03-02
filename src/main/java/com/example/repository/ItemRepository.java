@@ -17,6 +17,8 @@ public class ItemRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	@Autowired
+	private static final String TABLE_NAME = "items";
 	
 	/**
 	 * Item	オブジェクトを生成するローマッパー.
@@ -45,6 +47,23 @@ public class ItemRepository {
 		List<Item> itemList=template.query(sql,param,ITEM_ROW_MAPPER);
 		return itemList;
 	}
+	
+	public Item loadById(Integer id) {
+		StringBuilder loadByIdSql = new StringBuilder();
+		loadByIdSql.append("SELECT");
+		loadByIdSql.append(" id,name,description,price_m,price_l,image_path,deleted");
+		loadByIdSql.append(" FROM " + TABLE_NAME);
+		loadByIdSql.append(" WHERE id = :id");
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		
+		Item item = template.queryForObject(loadByIdSql.toString(), param,ITEM_ROW_MAPPER);
+		
+		return item;
+		
+	}
+	
+	
 
 	
 }

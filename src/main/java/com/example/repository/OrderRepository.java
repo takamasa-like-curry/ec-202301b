@@ -1,11 +1,10 @@
 package com.example.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -28,8 +27,26 @@ public class OrderRepository {
 	private NamedParameterJdbcTemplate template;
 
 	private static final String TABLE_NAME = "orders";
-	
-	private static final RowMapper<Order> ORDER_ROW_MAPPER = new BeanPropertyRowMapper<>(Order.class) ;
+
+	private static final RowMapper<Order> ORDER_ROW_MAPPER = (rs, i) -> {
+		Order order = new Order();
+		order.setId(rs.getInt("id"));
+		order.setUserId(rs.getInt("user_id"));
+		order.setStatus(rs.getInt("status"));
+		order.setTotalPrice(rs.getInt("total_price"));
+		order.setOrderDate(rs.getDate("order_date"));
+		order.setDestinationName(rs.getString("destination_name"));
+		order.setDestinationEmail(rs.getString("destination_email"));
+		order.setDestinationZipcode(rs.getString("destination_zipcode"));
+		order.setDestinationAddress(rs.getString("destination_address"));
+		order.setDestinationTel(rs.getString("destination_tel"));
+		Timestamp deliveryTime = rs.getTimestamp("delivery_time");
+		order.setDeliveryTime(deliveryTime.toLocalDateTime());
+		;
+		order.setPaymentMethod(rs.getInt("payment_method"));
+
+		return order;
+	};
 
 	/**
 	 * インサートする.
@@ -42,18 +59,29 @@ public class OrderRepository {
 		insertSql.append("INSERT INTO " + TABLE_NAME);
 		insertSql.append(" (user_id,status,total_price)");
 		insertSql.append(" VALUES");
-		insertSql.append(" (:userId,:status,:total_price)");
+		insertSql.append(" (:userId,:status,:totalPrice)");
 
-		SqlParameterSource param = new BeanPropertySqlParameterSource(Order.class);
+		SqlParameterSource param = new MapSqlParameterSource("userId", order.getUserId())
+				.addValue("status", order.getStatus()).addValue("totalPrice", order.getTotalPrice());
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		String[] keyColumnNames = { "id" };
-		int id = template.update(insertSql.toString(), param);
-		order.setId(id);
+		template.update(insertSql.toString(), param, keyHolder, keyColumnNames);
+		order.setId(keyHolder.getKey().intValue());
 
 		return order;
 	}
-	
-	public Order findByUserIdAndStatus(Integer userId,Integer status) {
+
+	public Order findByUserIdAndStatus(Integer userId, Integer status) {
+
+		System.out.println(status);
+		System.out.println(userId);
+		System.out.println("=================");
+		System.out.println("=================");
+		System.out.println("=================");
+		System.out.println("=================");
+		System.out.println("=================");
+		System.out.println("=================");
+		System.out.println("=================");
 		StringBuilder findByUserIdAndStatusSql = new StringBuilder();
 		findByUserIdAndStatusSql.append("SELECT ");
 		findByUserIdAndStatusSql.append(" id,");
@@ -73,17 +101,16 @@ public class OrderRepository {
 		findByUserIdAndStatusSql.append(" user_id = :userId");
 		findByUserIdAndStatusSql.append(" AND");
 		findByUserIdAndStatusSql.append(" status = :status");
-		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
-		
-		List<Order> orderList = 
-		
 
-//		  , destination_tel varchar(15)
-//		  , delivery_time timestamp
-//		  , payment_method integer
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
+
+		List<Order> orderList = template.query(findByUserIdAndStatusSql.toString(), param, ORDER_ROW_MAPPER);
+
+		if (orderList.size() == 0) {
+			return null;
+		}
+
+		return orderList.get(0);
 	}
-	
-	
 
 }

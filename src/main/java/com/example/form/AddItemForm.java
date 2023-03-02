@@ -2,7 +2,6 @@ package com.example.form;
 
 import java.util.List;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 /**
@@ -16,8 +15,8 @@ public class AddItemForm {
 	/** 商品ID */
 	private Integer itemId;
 	/** サイズ */
-	@NotBlank(message = "サイズを選択してください")
-	private String size;
+	@NotNull(message = "サイズを選択してください")
+	private Character size;
 	/** トッピングリスト */
 	private List<Integer> toppingIdList;
 	/** 数量 */
@@ -38,11 +37,11 @@ public class AddItemForm {
 		this.itemId = itemId;
 	}
 
-	public String getSize() {
+	public Character getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(Character size) {
 		this.size = size;
 	}
 
