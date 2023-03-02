@@ -15,10 +15,11 @@ import org.springframework.stereotype.Repository;
 import com.example.domain.Order;
 
 /**
- * ordersテーブルを操作するクラス.
+ * ordersテーブルを操作するリポジトリ.
  * 
- * @author sugaharatakamasa
+ * @author hayashiasuka
  *
+ * 
  */
 @Repository
 public class OrderRepository {
@@ -107,4 +108,24 @@ public class OrderRepository {
 		return orderList.get(0);
 	}
 
+	// 【6】注文確認画面表示
+	/**
+	 * 主キーで注文情報を取得する.
+	 * 
+	 * @param id 注文ID
+	 * @return 検索された注文情報
+	 */
+	public Order load(Integer id) {
+
+		String sql = "SELECT id, user_id, status, total_price, order_date, destination_name, destination_email, "
+				+ "destination_zipcode, destination_address, destination_tel, delivery_time, payment_method FROM "
+				+ TABLE_NAME + " WHERE id=:id;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+
+		Order order = template.queryForObject(sql, param, ORDER_ROW_MAPPER);
+
+		return order;
+
+	}
 }

@@ -19,6 +19,10 @@ public class ToppingRepository {
 	private NamedParameterJdbcTemplate template;
 
 	private static final String TABLE_NAME = "toppings";
+	/**
+	 * Toppingオブジェクトを生成するローマッパー
+	 */
+	private static final RowMapper<Topping> TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(Topping.class);
 
 	/**
 	 * ID検索.
@@ -40,11 +44,6 @@ public class ToppingRepository {
 
 		return topping;
 	}
-
-	/**
-	 * Toppingオブジェクトを生成するローマッパー
-	 */
-	private static final RowMapper<Topping> TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(Topping.class);
 
 //【4】詳細画面
 	/**
