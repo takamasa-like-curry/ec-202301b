@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * カレーを表すドメイン.
  * 
- * @author 渡辺
+ * @author watanabe
  *
  */
 public class Item {

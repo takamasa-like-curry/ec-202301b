@@ -34,7 +34,7 @@ public class ItemRepository {
 		return itemList;
 	}
 	/**
-	 * 商品の名前を曖昧検索します
+	 * 商品の名前を曖昧検索します.
 	 * @param name
 	 * @return　曖昧検索後の一覧情報
 	 */
@@ -46,9 +46,9 @@ public class ItemRepository {
 		return itemList;
 	}
 	/**
-	 * 商品を主キー検索します
+	 * 商品を主キー検索します.
 	 * @param id
-	 * @return　
+	 * @return　 商品情報
 	 */
 	public Item load(Integer id){
 		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE id=:id;";
