@@ -31,7 +31,7 @@ public class ShowItemListService {
 			List<Item> itemList = itemRepository.findAll();
 			return itemList;
 		}
-		List<Item> itemList = itemRepository.load(name);
+		List<Item> itemList = itemRepository.findByName(name);
 		return itemList;
 	}
 }
