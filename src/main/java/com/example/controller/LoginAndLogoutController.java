@@ -41,7 +41,7 @@ public class LoginAndLogoutController {
 	 * @param model モデル
 	 * @return 該当ユーザーがある場合：商品一覧画面。該当ユーザーがない場合：ログイン画面(エラーメッセージ表示)
 	 */
-	@PostMapping("login")
+	@PostMapping("/login")
 	public String login(LoginForm form, Model model) {
 		User user = service.login(form);
 		if (user == null) {
