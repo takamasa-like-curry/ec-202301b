@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * spring securityに関するクラス.
@@ -19,8 +20,26 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		// フォーム認証の設定
-		http.authorizeHttpRequests().requestMatchers("/**").permitAll();
+		// 認可に関する設定
+		http.authorizeHttpRequests()
+				.requestMatchers("/showList", "/showDetail", "/showCartList", "/registerUser", "/loginAndLogout").permitAll()
+				.anyRequest().authenticated();
+
+		// ログインに関する設定
+		http.formLogin()
+			.loginPage("/loginAndLogout")
+			.loginProcessingUrl("/login")
+			.failureUrl("/?error=true")
+			.defaultSuccessUrl("/showList", false)
+			.usernameParameter("email")
+			.passwordParameter("password");
+
+		// ログアウトに関する設定
+		http.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) 
+			.logoutSuccessUrl("/showList") 
+			.deleteCookies("JSESSIONID") 
+			.invalidateHttpSession(true);
 
 		return http.build();
 
