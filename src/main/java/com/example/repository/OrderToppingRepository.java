@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -31,8 +31,9 @@ public class OrderToppingRepository {
 		insertSql.append(" VALUES");
 		insertSql.append(" (:toppingId,:orderItemId)");
 
-		SqlParameterSource param = new BeanPropertySqlParameterSource(OrderTopping.class);
-
+//		SqlParameterSource param = new BeanPropertySqlParameterSource(OrderTopping.class);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("toppingId", orderTopping.getToppingId()).addValue("orderItemId", orderTopping.getOrderItemId());
+		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		String[] keyColumnNames = { "id" };
 		template.update(insertSql.toString(), param, keyHolder, keyColumnNames);

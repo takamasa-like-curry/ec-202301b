@@ -41,8 +41,11 @@ public class OrderRepository {
 		order.setDestinationAddress(rs.getString("destination_address"));
 		order.setDestinationTel(rs.getString("destination_tel"));
 		Timestamp deliveryTime = rs.getTimestamp("delivery_time");
-		order.setDeliveryTime(deliveryTime.toLocalDateTime());
-		;
+		if (deliveryTime == null) {
+			order.setDeliveryTime(null);
+		} else {
+			order.setDeliveryTime(deliveryTime.toLocalDateTime());
+		}
 		order.setPaymentMethod(rs.getInt("payment_method"));
 
 		return order;
@@ -73,15 +76,6 @@ public class OrderRepository {
 
 	public Order findByUserIdAndStatus(Integer userId, Integer status) {
 
-		System.out.println(status);
-		System.out.println(userId);
-		System.out.println("=================");
-		System.out.println("=================");
-		System.out.println("=================");
-		System.out.println("=================");
-		System.out.println("=================");
-		System.out.println("=================");
-		System.out.println("=================");
 		StringBuilder findByUserIdAndStatusSql = new StringBuilder();
 		findByUserIdAndStatusSql.append("SELECT ");
 		findByUserIdAndStatusSql.append(" id,");

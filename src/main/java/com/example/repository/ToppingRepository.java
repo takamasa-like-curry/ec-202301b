@@ -20,6 +20,12 @@ public class ToppingRepository {
 
 	private static final String TABLE_NAME = "toppings";
 
+	/**
+	 * ID検索.
+	 * 
+	 * @param id 検索するID
+	 * @return 該当ID
+	 */
 	public Topping load(Integer id) {
 		StringBuilder loadSql = new StringBuilder();
 		loadSql.append("SELECT");

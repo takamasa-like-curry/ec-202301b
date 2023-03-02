@@ -105,8 +105,7 @@ create table orders (
   , payment_method integer
   ) ;
   
-  --テストケース挿入
-  insert into orders (user_id,status,total_price,) values (1,0,1000);
+
 
 -- 注文商品
 drop table if exists order_items cascade;

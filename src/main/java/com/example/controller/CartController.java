@@ -14,6 +14,7 @@ import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.AddItemForm;
 import com.example.service.CartService;
+import com.example.service.ShowDetailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,16 +26,16 @@ public class CartController {
 	private HttpSession session;
 	@Autowired
 	private CartService service;
+	@Autowired
+	private ShowDetailService showDetailService;
 
 	@GetMapping("/to")
 	public String to() {
 		return "cart_list";
 	}
 
-	@GetMapping("/detail")
-	public String detail(AddItemForm form, Model model) {
-		Item item = new Item();
-		item.setId(1);
+	public String toDetail(Model model, Integer itemId, AddItemForm form) {
+		Item item = showDetailService.showDetailItem(itemId);
 		model.addAttribute("item", item);
 		return "item_detail";
 	}
@@ -42,13 +43,11 @@ public class CartController {
 	@GetMapping("/showCartList")
 	public String showCartList(Model model) {
 		Integer userId = pickUpUserId();
-		Order order = (Order) session.getAttribute("order");
-//		order = service.pickUpOrder(order, userId);
-//		if (order == null) {
-//			model.addAttribute("cartStatusMessage","カート内に商品がありません");
-//		}
+//		Order order = (Order) session.getAttribute("order");
 
-		System.out.println(order);
+		Order order = service.pickUpOrder(userId);
+//		session.setAttribute("order", order);
+		model.addAttribute("order", order);
 
 		return "cart_list";
 	}
@@ -56,17 +55,15 @@ public class CartController {
 	@PostMapping("/addItem")
 	// モデルは削除すること
 	public String addItem(@Validated AddItemForm form, BindingResult result, Model model) {
-
+		System.out.println(result);
 		// 入力値チェック
 		if (result.hasErrors()) {
-			return detail(form, model);
+			return toDetail(model, form.getItemId(), form);
 		}
 		Integer userId = pickUpUserId();
 
-		Order order = (Order) session.getAttribute("order");
-		order = service.addItem(form, order, userId);
+		Order order = service.addItem(form, userId);
 
-		session.setAttribute("order", order);
 		return "redirect:/cart/showCartList";
 	}
 
@@ -86,5 +83,13 @@ public class CartController {
 			userId = user.getId();
 		}
 		return userId;
+	}
+
+	@PostMapping("/deleteItem")
+	public String deleteItem(Integer deleteItemId, int index) {
+		Order order = (Order) session.getAttribute("order");
+		service.deleteOrderItem(deleteItemId);
+		order.getOrderItemList().remove(index);
+		return "redirect:/cart/showCartList";
 	}
 }

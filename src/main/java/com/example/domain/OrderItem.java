@@ -36,12 +36,12 @@ public class OrderItem {
 		int itemTotalPrice = 0;
 		
 		if(size == 'M') {
-			itemTotalPrice = item.getPriceM();
+			itemTotalPrice = item.getPriceM() * this.quantity;
 			for(OrderTopping orderTopping:orderToppingList) {
 				toppingTotalPrice += orderTopping.getTopping().getPriceM();
 			}
 		} else if(size == 'L') {
-			itemTotalPrice = item.getPriceL();
+			itemTotalPrice = item.getPriceL() * this.quantity;
 			for(OrderTopping orderTopping:orderToppingList) {
 				toppingTotalPrice += orderTopping.getTopping().getPriceL();
 			} 

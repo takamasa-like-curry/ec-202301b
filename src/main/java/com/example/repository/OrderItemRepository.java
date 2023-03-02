@@ -42,4 +42,14 @@ public class OrderItemRepository {
 
 		return orderItem;
 	}
+
+	public void delete(Integer deleteItemId) {
+		StringBuilder deleteSql = new StringBuilder();
+		deleteSql.append("DELETE FROM " + TABLE_NAME);
+		deleteSql.append(" WHERE id = :deleteItemId");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("deleteItemId", deleteItemId);
+
+		template.update(deleteSql.toString(), param);
+	}
 }

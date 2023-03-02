@@ -51,6 +51,8 @@ public class Topping {
 
 	@Override
 	public String toString() {
-		return "ToppingRepository [id=" + id + ", name=" + name + ", priceM=" + priceM + ", priceL=" + priceL + "]";
+		return "Topping [id=" + id + ", name=" + name + ", priceM=" + priceM + ", priceL=" + priceL + "]";
 	}
+
+
 }
