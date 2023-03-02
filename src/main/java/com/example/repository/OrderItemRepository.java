@@ -17,7 +17,7 @@ import com.example.domain.OrderItem;
 /**
  * order_itemsテーブルを操作するリポジトリ.
  * 
- * @author hayashiasuka >>>>>>> develop
+ * @author hayashiasuka
  *
  */
 @Repository
@@ -26,8 +26,15 @@ public class OrderItemRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	private static final RowMapper<OrderItem> ORDERITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(OrderItem.class);
 	private static final String TABLE_NAME = "order_items";
 
+	/**
+	 * orderItemを挿入する.
+	 * 
+	 * @param orderItem 挿入するorderItem
+	 * @return IDを含むorderItem
+	 */
 	public OrderItem insert(OrderItem orderItem) {
 		StringBuilder insertSql = new StringBuilder();
 		insertSql.append("INSERT INTO " + TABLE_NAME);
@@ -47,6 +54,11 @@ public class OrderItemRepository {
 		return orderItem;
 	}
 
+	/**
+	 * orderItemを削除する.
+	 * 
+	 * @param deleteItemId 削除するorderItem
+	 */
 	public void delete(Integer deleteItemId) {
 		StringBuilder deleteSql = new StringBuilder();
 		deleteSql.append("DELETE FROM " + TABLE_NAME);
@@ -57,7 +69,6 @@ public class OrderItemRepository {
 		template.update(deleteSql.toString(), param);
 	}
 
-	private static final RowMapper<OrderItem> ORDERITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(OrderItem.class);
 
 	// 【6】注文確認画面表示
 	/**
@@ -75,4 +86,5 @@ public class OrderItemRepository {
 
 		return orderItemList;
 	}
+
 }

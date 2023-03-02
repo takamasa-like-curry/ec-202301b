@@ -18,6 +18,12 @@ import com.example.service.ShowDetailService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * ショッピンカート内の操作を行うクラス.
+ * 
+ * @author sugaharatakamasa
+ *
+ */
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -29,31 +35,44 @@ public class CartController {
 	@Autowired
 	private ShowDetailService showDetailService;
 
-	@GetMapping("/to")
-	public String to() {
-		return "cart_list";
-	}
-
+	/**
+	 * 商品詳細画面を表示(入力値チェックの際に使用).
+	 * 
+	 * @param model  モデル
+	 * @param itemId 元ページで表示されていた商品のID
+	 * @param form   フォーム
+	 * @return 商品詳細画面
+	 */
 	public String toDetail(Model model, Integer itemId, AddItemForm form) {
 		Item item = showDetailService.showDetailItem(itemId);
 		model.addAttribute("item", item);
 		return "item_detail";
 	}
 
+	/**
+	 * ショッピングカート画面を表示.
+	 * 
+	 * @param model モデル
+	 * @return ショッピングカート画面
+	 */
 	@GetMapping("/showCartList")
 	public String showCartList(Model model) {
 		Integer userId = pickUpUserId();
-//		Order order = (Order) session.getAttribute("order");
-
 		Order order = service.pickUpOrder(userId);
-//		session.setAttribute("order", order);
 		model.addAttribute("order", order);
 
 		return "cart_list";
 	}
 
+	/**
+	 * 商品を追加する.
+	 * 
+	 * @param form   フォーム
+	 * @param result リザルト
+	 * @param model  モデル
+	 * @return ショッピングカート画面
+	 */
 	@PostMapping("/addItem")
-	// モデルは削除すること
 	public String addItem(@Validated AddItemForm form, BindingResult result, Model model) {
 		System.out.println(result);
 		// 入力値チェック
@@ -62,7 +81,7 @@ public class CartController {
 		}
 		Integer userId = pickUpUserId();
 
-		Order order = service.addItem(form, userId);
+		service.addItem(form, userId);
 
 		return "redirect:/cart/showCartList";
 	}
@@ -85,11 +104,17 @@ public class CartController {
 		return userId;
 	}
 
+	/**
+	 * 商品を削除.
+	 * 
+	 * @param deleteItemId 削除する商品のID
+	 * @return ショッピングカート画面
+	 */
 	@PostMapping("/deleteItem")
-	public String deleteItem(Integer deleteItemId, int index) {
-		Order order = (Order) session.getAttribute("order");
+	public String deleteItem(Integer deleteItemId) {
+
 		service.deleteOrderItem(deleteItemId);
-		order.getOrderItemList().remove(index);
 		return "redirect:/cart/showCartList";
 	}
+
 }

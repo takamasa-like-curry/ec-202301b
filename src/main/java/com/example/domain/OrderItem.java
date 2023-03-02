@@ -24,34 +24,34 @@ public class OrderItem {
 	private Item item;
 	/** 注文トッピングのリスト */
 	private List<OrderTopping> orderToppingList;
-	
+
 	/**
 	 * 小計を算出するメソッド.
 	 * 
 	 * @return 小計金額
 	 */
 	public int getSubTotal() {
-		
+
 		int toppingTotalPrice = 0;
 		int itemTotalPrice = 0;
-		
-		if(size == 'M') {
-			itemTotalPrice = item.getPriceM() * this.quantity;
-			for(OrderTopping orderTopping:orderToppingList) {
+
+		if (size == 'M') {
+			itemTotalPrice = item.getPriceM();
+			for (OrderTopping orderTopping : orderToppingList) {
 				toppingTotalPrice += orderTopping.getTopping().getPriceM();
 			}
-		} else if(size == 'L') {
-			itemTotalPrice = item.getPriceL() * this.quantity;
-			for(OrderTopping orderTopping:orderToppingList) {
+		} else if (size == 'L') {
+			itemTotalPrice = item.getPriceL();
+			for (OrderTopping orderTopping : orderToppingList) {
 				toppingTotalPrice += orderTopping.getTopping().getPriceL();
-			} 
+			}
 		} else {
 			throw new RuntimeException("例外が発生しました");
 		}
 
-		return itemTotalPrice + toppingTotalPrice;
+		return (itemTotalPrice + toppingTotalPrice) * this.quantity;
 	}
- 
+
 	public Integer getId() {
 		return id;
 	}

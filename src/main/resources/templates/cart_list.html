@@ -162,15 +162,18 @@
               ご注文金額合計：38,000円 (税込)
             </div>
           </div>
-          <div class="row order-confirm-btn">
-            <button
-              class="btn"
-              type="button"
-              onclick="location.href='order_confirm.html'"
-            >
-              <span>注文に進む</span>
-            </button>
-          </div>
+          <form th:action="@{/orderConfirm}" method="get">
+            <div class="row order-confirm-btn">
+              <button
+                class="btn"
+                type="submit"
+                name="orderId"
+                th:value="${order.id}"
+              >
+                <span>注文に進む</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <!-- end container -->

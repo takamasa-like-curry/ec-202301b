@@ -39,21 +39,26 @@ public class CartService {
 	@Autowired
 	private ToppingRepository toppingRepository;
 
+	/**
+	 * 商品を追加する.
+	 * 
+	 * @param form   追加する商品の情報を取得するフォーム
+	 * @param userId ユーザーID
+	 * @return
+	 */
 	public Order addItem(AddItemForm form, Integer userId) {
-		
+
 		Integer statsu = 0;
-		Order order = orderRepository.findByUserIdAndStatus(userId, statsu);//ここに
-		
+		Order order = orderRepository.findByUserIdAndStatus(userId, statsu);
+
 		// カートがない場合
 		if (order == null) {
-			System.out.println("order存在しない");
 			order = new Order();
 			order.setUserId(userId);
 			order.setStatus(0);
 			order.setTotalPrice(0);
 			order = orderRepository.insert(order);
-			order.setOrderItemList(new ArrayList<OrderItem>());
-			System.out.println(order);
+
 		}
 
 		OrderItem orderItem = new OrderItem();
@@ -63,9 +68,7 @@ public class CartService {
 		orderItem.setQuantity(form.getQuantity());
 		orderItem.setSize(form.getSize());
 		orderItem = orderItemRepository.insert(orderItem);
-		orderItem.setItem(itemRepository.load(itemId));
 
-		List<OrderTopping> orderToppingList = new ArrayList<>();
 		if (form.getToppingIdList() != null) {
 
 			for (Integer toppingId : form.getToppingIdList()) {
@@ -73,37 +76,37 @@ public class CartService {
 				orderTopping.setToppingId(toppingId);
 				orderTopping.setOrderItemId(orderItem.getId());
 				orderTopping = orderToppingRepository.insert(orderTopping);
-				orderTopping.setTopping(toppingRepository.load(toppingId));
-				orderToppingList.add(orderTopping);
 			}
 
 		}
-		orderItem.setOrderToppingList(orderToppingList);
-		List<OrderItem> orderItemList = order.getOrderItemList();
-		orderItemList.add(orderItem);
-		order.setOrderItemList(orderItemList);
 
 		return order;
 
 	}
 
+	/**
+	 * 商品情報を取得する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return 取得した商品情報(order)
+	 */
 	public Order pickUpOrder(Integer userId) {
 		Integer status = 0;
 		Order order = orderRepository.findByUserIdAndStatus(userId, status);
-		
-		if(order == null) {
+
+		if (order == null) {
 			order = new Order();
 			order.setOrderItemList(new ArrayList<>());
-			
+
 			return order;
 		}
 
-		List<OrderItem> orderItemList = order.getOrderItemList();
+		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getId());
 		for (OrderItem orderItem : orderItemList) {
-			orderItem.setItem(itemRepository.load(orderItem.getId()));
-			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
+			orderItem.setItem(itemRepository.load(orderItem.getItemId()));
+			List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItem.getId());
 			for (OrderTopping orderTopping : orderToppingList) {
-				Topping topping = toppingRepository.load(orderTopping.getId());
+				Topping topping = toppingRepository.load(orderTopping.getToppingId());
 				orderTopping.setTopping(topping);
 			}
 			orderItem.setOrderToppingList(orderToppingList);
@@ -112,7 +115,13 @@ public class CartService {
 		return order;
 	}
 
+	/**
+	 * 商品を削除する.
+	 *  
+	 * @param deelteItemId 削除する商品のID
+	 */
 	public void deleteOrderItem(Integer deelteItemId) {
+
 		orderItemRepository.delete(deelteItemId);
 	}
 }
