@@ -55,7 +55,7 @@
     <div class="top-wrapper">
       <div class="container">
         <div class="row register-page">
-        <form th:action="@{/registerAdmin/registerUser}" method="post" th:object="${registerUserForm}">
+        <form th:action="@{/registerUser/register}" method="post" th:object="${registerUserForm}">
           <div class="error" th:errors="*{lastName}">名前を入力して下さい</div>
           <div class="error" th:errors="*{firstName}">名前を入力して下さい</div>
           <div class="row">
