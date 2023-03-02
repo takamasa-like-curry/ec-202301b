@@ -63,9 +63,12 @@
       <div th:if="${message}" >
       <p class="message" th:text="${message}">該当商品がありません</p>
       </div>
-        <form name="name" class="search-form" th:action="@{/showList}">
-          <input type="text" name="name" class="search-name-input"  />
-
+        <form th:action="@{/showList}" name="name" class="search-form"  >
+          <input type="text" name="name" class="search-name-input" id="searchItem"  autocomplete="name" list="itemList"/>
+				<datalist id="itemList">
+				<option th:each="item:${itemList}" th:value=${item.name}>
+				</option>
+				</datalist>
           <button class="btn search-btn" type="submit">
             <span>検　索</span>
           </button>
