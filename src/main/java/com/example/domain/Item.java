@@ -2,12 +2,12 @@ package com.example.domain;
 
 import java.util.List;
 
-import com.example.repository.ToppingRepository;
+
 
 /**
  * カレーを表すドメイン.
  * 
- * @author 渡辺
+ * @author watanabe
  *
  */
 public class Item {
@@ -27,7 +27,16 @@ public class Item {
 	/** 削除フラグ */
 	private Boolean deleted;
 	/** トッピングリスト */
-	private List<ToppingRepository> toppingList;
+	private List<Topping> toppingList;
+
+
+	
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
+				+ priceL + ", imagePath=" + imagePath + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
+	}
 
 	public Integer getId() {
 		return id;
@@ -85,18 +94,12 @@ public class Item {
 		this.deleted = deleted;
 	}
 
-	public List<ToppingRepository> getToppingList() {
+	public List<Topping> getToppingList() {
 		return toppingList;
 	}
 
-	public void setToppingList(List<ToppingRepository> toppingList) {
+	public void setToppingList(List<Topping> toppingList) {
 		this.toppingList = toppingList;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
-				+ priceL + ", imagePath=" + imagePath + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
 	}
 
 }
