@@ -64,7 +64,7 @@ public class CartService {
 		orderItem.setQuantity(form.getQuantity());
 		orderItem.setSize(form.getSize());
 		orderItem = orderItemRepository.insert(orderItem);
-		orderItem.setItem(itemRepository.loadById(itemId));
+		orderItem.setItem(itemRepository.load(itemId));
 
 		System.out.println("===========================");
 		System.out.println("===========================");
@@ -106,7 +106,7 @@ public class CartService {
 
 		List<OrderItem> orderItemList = order.getOrderItemList();
 		for (OrderItem orderItem : orderItemList) {
-			orderItem.setItem(itemRepository.loadById(orderItem.getId()));
+			orderItem.setItem(itemRepository.load(orderItem.getId()));
 			List<OrderTopping> orderToppingList = orderItem.getOrderToppingList();
 			for (OrderTopping orderTopping : orderToppingList) {
 				orderTopping.setTopping(toppingRepository.load(orderTopping.getId()));
