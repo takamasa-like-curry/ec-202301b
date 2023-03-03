@@ -110,7 +110,10 @@
                 </td>
                 <td>
                   <div class="text-center">
-                    <span th:text="${#numbers.formatInteger(orderItem.getSubTotal(), 1, 'COMMA')}">小計金額</span>円
+                    <span
+                      th:text="${#numbers.formatInteger(orderItem.getSubTotal(), 1, 'COMMA')}"
+                      >小計金額</span
+                    >円
                   </div>
                 </td>
               </tr>
@@ -119,9 +122,15 @@
         </div>
 
         <div class="row cart-total-price">
-          <div>消費税：<span th:text="${#numbers.formatInteger(order.getTax(), 1, 'COMMA')}">消費税</span>円</div>
           <div>
-            ご注文金額合計：<span th:text="${#numbers.formatInteger(order.getCalcTotalPrice(), 1, 'COMMA')}"
+            消費税：<span
+              th:text="${#numbers.formatInteger(order.getTax(), 1, 'COMMA')}"
+              >消費税</span
+            >円
+          </div>
+          <div>
+            ご注文金額合計：<span
+              th:text="${#numbers.formatInteger(order.getCalcTotalPrice(), 1, 'COMMA')}"
               >合計金額</span
             >円 (税込)
           </div>
@@ -169,7 +178,7 @@
                   name="destinationZipcode"
                   th:field="*{destinationZipcode}"
                 />
-                <label for="zipcode">郵便番号(ハイフンが必要です)</label>
+                <label for="zipcode">郵便番号 (例)123-4567</label>
                 <button class="btn" type="button">
                   <span>住所検索</span>
                 </button>
@@ -196,7 +205,7 @@
                   name="destinationTel"
                   th:field="*{destinationTel}"
                 />
-                <label for="tel">電話番号(ハイフンが必要です)</label>
+                <label for="tel">電話番号 (例)03-1234-5678</label>
               </div>
             </div>
             <div class="row order-confirm-delivery-datetime">
