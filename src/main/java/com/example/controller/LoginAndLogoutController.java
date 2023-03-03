@@ -65,7 +65,7 @@ public class LoginAndLogoutController {
 		
 		if ("toOrderConfirm".equals(form.getKey())) {
 			return "redirect:/orderConfirm" + "?orderId=" + orderId;
-		} else if (form.getKey() == null) {
+		} else if (form.getKey() == null || form.getKey() == "") {
 			return "redirect:/showList";
 
 		} else {
