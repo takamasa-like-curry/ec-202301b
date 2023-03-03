@@ -85,12 +85,12 @@
                   >
                   &nbsp;&nbsp;<span
                     th:if="${orderItem.size}=='M'"
-                    th:text="${orderItem.Item.priceM}+円"
+                    th:text="${#numbers.formatInteger(orderItem.Item.priceM, 1, 'COMMA')}+円"
                     >Mの値段</span
                   >
                   <span
                     th:if="${orderItem.size}=='L'"
-                    th:text="${orderItem.Item.priceL}+円"
+                    th:text="${#numbers.formatInteger(orderItem.Item.priceL, 1, 'COMMA')}+円"
                     >Lの値段</span
                   >
                   &nbsp;&nbsp;<span th:text="${orderItem.quantity}">数量</span
@@ -102,7 +102,7 @@
                       <span th:text="${orderTopping.topping.name}">商品名</span>
                       <span
                         th:if="${orderItem.size}=='M'"
-                        th:text="${orderTopping.topping.priceM}"
+                        th:text="${#numbers.formatInteger(orderTopping.topping.priceM, 1, 'COMMA')}"
                         >金額</span
                       >円
                     </li>
@@ -110,7 +110,7 @@
                 </td>
                 <td>
                   <div class="text-center">
-                    <span th:text="${orderItem.getSubTotal()}">小計金額</span>円
+                    <span th:text="${#numbers.formatInteger(orderItem.getSubTotal(), 1, 'COMMA')}">小計金額</span>円
                   </div>
                 </td>
               </tr>
@@ -119,9 +119,9 @@
         </div>
 
         <div class="row cart-total-price">
-          <div>消費税：<span th:text="${order.getTax()}">消費税</span>円</div>
+          <div>消費税：<span th:text="${#numbers.formatInteger(order.getTax(), 1, 'COMMA')}">消費税</span>円</div>
           <div>
-            ご注文金額合計：<span th:text="${order.getCalcTotalPrice()}"
+            ご注文金額合計：<span th:text="${#numbers.formatInteger(order.getCalcTotalPrice(), 1, 'COMMA')}"
               >合計金額</span
             >円 (税込)
           </div>
