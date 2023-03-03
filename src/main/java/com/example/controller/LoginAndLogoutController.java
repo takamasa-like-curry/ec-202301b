@@ -43,6 +43,7 @@ public class LoginAndLogoutController {
 	 */
 	@PostMapping("/login")
 	public String login(LoginForm form, Model model) {
+		System.out.println("ログインまできてる");
 		User user = service.login(form);
 		if (user == null) {
 			model.addAttribute("loginErrorMessage", "メールアドレスまたはパスワードが不正です。");
