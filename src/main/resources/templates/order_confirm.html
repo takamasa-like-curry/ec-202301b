@@ -169,7 +169,7 @@
                   name="destinationZipcode"
                   th:field="*{destinationZipcode}"
                 />
-                <label for="zipcode">郵便番号</label>
+                <label for="zipcode">郵便番号(ハイフンが必要です)</label>
                 <button class="btn" type="button">
                   <span>住所検索</span>
                 </button>
@@ -196,7 +196,7 @@
                   name="destinationTel"
                   th:field="*{destinationTel}"
                 />
-                <label for="tel">電話番号</label>
+                <label for="tel">電話番号(ハイフンが必要です)</label>
               </div>
             </div>
             <div class="row order-confirm-delivery-datetime">
@@ -208,7 +208,9 @@
                   name="deliveryDate"
                   th:field="*{deliveryDate}"
                 />
-                <label for="address">配達日時</label>
+                <label for="address"
+                  >配達日時(３時間後より配達が可能です)</label
+                >
               </div>
               <div class="error" th:errors="*{deliveryTime}"></div>
               <label class="order-confirm-delivery-time">
