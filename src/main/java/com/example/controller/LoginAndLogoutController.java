@@ -56,12 +56,7 @@ public class LoginAndLogoutController {
 		session.setAttribute("user", user);
 
 		Integer orderId = service.pickUpOrderId(tentativeUserId);
-		
-		System.out.println("==================");
-		System.out.println("==================");
-		System.out.println(form.getKey());
-		System.out.println("==================");
-		System.out.println("==================");
+
 		
 		if ("toOrderConfirm".equals(form.getKey())) {
 			return "redirect:/orderConfirm" + "?orderId=" + orderId;
