@@ -14,36 +14,48 @@ import com.example.domain.Topping;
 
 @Repository
 public class ToppingRepository {
- 
+
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
+	private static final String TABLE_NAME = "toppings";
 	/**
 	 * Toppingオブジェクトを生成するローマッパー
 	 */
-	private static final RowMapper<Topping> TOPPING_ROW_MAPPER =new BeanPropertyRowMapper<>(Topping.class);
+	private static final RowMapper<Topping> TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(Topping.class);
+
+	/**
+	 * ID検索.
+	 * 
+	 * @param id 検索するID
+	 * @return 該当ID
+	 */
+	public Topping load(Integer id) {
+		StringBuilder loadSql = new StringBuilder();
+		loadSql.append("SELECT");
+		loadSql.append(" id,name,price_m,price_l");
+		loadSql.append(" FROM " + TABLE_NAME);
+		loadSql.append(" WHERE");
+		loadSql.append(" id =  :id");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+
+		Topping topping = template.queryForObject(loadSql.toString(), param, TOPPING_ROW_MAPPER);
+
+		return topping;
+	}
+
 //【4】詳細画面
 	/**
 	 * トッピング一覧を表示します
-	 * @return　トッピング一覧情報
+	 * 
+	 * @return トッピング一覧情報
 	 */
-	public List<Topping> findAll(){
-		String sql="SELECT id,name,price_m,price_l FROM toppings ORDER BY id;";
-		List<Topping> toppingList=template.query(sql, TOPPING_ROW_MAPPER);
+	public List<Topping> findAll() {
+		String sql = "SELECT id,name,price_m,price_l FROM toppings ORDER BY id;";
+		List<Topping> toppingList = template.query(sql, TOPPING_ROW_MAPPER);
 		return toppingList;
+
 	}
 
-	/**
-	 * 主キーからトッピングを取得する.
-	 * 
-	 * @param id トッピングID
-	 * @return 検索されたトッピング
-	 */
-	public Topping load(Integer id) {
-		String sql = "SELECT id, name, price_m, price_l FROM toppings WHERE id=:id;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		
-		Topping topping = template.queryForObject(sql, param, TOPPING_ROW_MAPPER);
-		return topping;
-	}
 }
