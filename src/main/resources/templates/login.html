@@ -42,12 +42,21 @@
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
+          <div class="headder-login-status">
+            <div
+              th:if="${session.user}"
+              th:text="${session.user.name} + さんこんにちは"
+            ></div>
+          </div>
 
           <div class="header-right">
             <a th:href="@{/showList}">商品一覧</a>
             <a th:href="@{/registerUser}">会員登録</a>
             <a th:href="@{/loginAndLogout}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+            <a th:href="@{/loginAndLogout/logout}" class="login">
+              <i class="fas fa-sign-in-alt"></i>ログアウト
             </a>
           </div>
         </div>
@@ -70,6 +79,7 @@
               th:object="${loginForm}"
               method="post"
             >
+              <input type="hidden" name="key" th:value="${key}" />
               <div class="row"></div>
               <div class="row">
                 <div class="input-field col s12">
@@ -109,7 +119,7 @@
               <div class="row">
                 <div class="input-field col s6 m6 l6">
                   <p class="margin medium-small">
-                    <a th:href="@{registerAdmin}">会員登録はこちら</a>
+                    <a th:href="@{/registerUser}">会員登録はこちら</a>
                   </p>
                 </div>
               </div>
