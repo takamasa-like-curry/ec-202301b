@@ -92,8 +92,8 @@
             <a th:href="@{'/showDetail?id='+${item.id}}"
             th:text="${item.name}">カレー</a><br />
             <span>
-          <span class="price">Ｍ</span><span th:text="${item.priceM}"></span>円(税抜)<br />
-          <span class="price">Ｌ</span><span th:text="${item.priceL}"></span>円(税抜)<br />
+          <span class="price">Ｍ</span><span th:text="${#numbers.formatInteger(item.priceM, 1, 'COMMA')}"></span>円(税抜)<br />
+          <span class="price">Ｌ</span><span th:text="${#numbers.formatInteger(item.priceL, 1, 'COMMA')}"></span>円(税抜)<br />
            </span>
           </div>
          </div>
