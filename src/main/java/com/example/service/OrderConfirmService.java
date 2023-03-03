@@ -3,6 +3,7 @@ package com.example.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.controller.CompleteOrderService;
 import com.example.domain.Order;
 
 /**
@@ -13,7 +14,7 @@ import com.example.domain.Order;
  */
 @Service
 @Transactional
-public class OrderConfirmService extends OrderService{
+public class OrderConfirmService extends CompleteOrderService{
 
 
 	// 【6】注文確認画面表示

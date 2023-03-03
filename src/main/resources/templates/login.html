@@ -70,6 +70,7 @@
               th:object="${loginForm}"
               method="post"
             >
+              <input type="hidden" name="key" th:value="${key}" />
               <div class="row"></div>
               <div class="row">
                 <div class="input-field col s12">
@@ -109,7 +110,7 @@
               <div class="row">
                 <div class="input-field col s6 m6 l6">
                   <p class="margin medium-small">
-                    <a th:href="@{registerAdmin}">会員登録はこちら</a>
+                    <a th:href="@{/registerUser}">会員登録はこちら</a>
                   </p>
                 </div>
               </div>

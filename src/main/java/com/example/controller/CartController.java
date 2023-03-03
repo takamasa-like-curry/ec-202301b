@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
 import com.example.domain.Order;
-import com.example.domain.User;
 import com.example.form.AddItemForm;
 import com.example.service.CartService;
 import com.example.service.ShowDetailService;
@@ -60,6 +59,7 @@ public class CartController {
 		Integer userId = pickUpUserId();
 		Order order = service.pickUpOrder(userId);
 		model.addAttribute("order", order);
+		model.addAttribute("key", "toOrderConfirm"); // enum検討
 
 		return "cart_list";
 	}
@@ -89,18 +89,12 @@ public class CartController {
 	/**
 	 * ユーザーIDを取得
 	 * 
-	 * @return ログインしていればユーザーID、ログインしていなければ仮のユーザーID
+	 * @return 
 	 */
 	public Integer pickUpUserId() {
-		Integer userId = null;
-		User user = (User) session.getAttribute("user");
-		// 未ログイン時の操作
-		if (user == null) {
-			String sessionId = session.getId();
-			userId = sessionId.hashCode();
-		} else {
-			userId = user.getId();
-		}
+		String sessionId = session.getId();
+		Integer userId = sessionId.hashCode();
+
 		return userId;
 	}
 

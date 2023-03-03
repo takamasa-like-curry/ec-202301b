@@ -163,6 +163,7 @@
             </div>
           </div>
           <form th:action="@{/orderConfirm}" method="get">
+            <input type="hidden" name="key" th:value="${key}" />
             <div class="row order-confirm-btn">
               <button
                 class="btn"
