@@ -16,17 +16,17 @@
       href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/register_admin.css" />
-    <link rel="stylesheet" href="css/login.css" />
-    <link rel="stylesheet" href="css/item_list.css" />
-    <link rel="stylesheet" href="css/item_detail.css" />
-    <link rel="stylesheet" href="css/cart_list.css" />
-    <link rel="stylesheet" href="css/order_confirm.css" />
-    <link rel="stylesheet" href="css/order_finished.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,17 +37,19 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
-              <img class="logo" src="img/header_logo.png" />
+            <a ht:href="@{/}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
-            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.administrator.name">ユーザー</span>さんナマステ！</span>
+            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i>カート</a>
-            <a href="login.html" class="login">
+            <a th:href="@{/}">商品一覧</a>
+            <a th:href="@{registerUser}">会員登録</a>
+            <a th:href="@{/cart/showCartList}"
+              ><i class="fas fa-shopping-cart"></i>カート</a
+            >
+            <a th:href="@{/LoginAndLogout}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
@@ -66,22 +68,20 @@
           </p>
           <p>メールが届かない場合は「注文履歴」からご確認ください。</p>
         </div>
-        <div class="row order-finished-btn">
-          <button
-            class="btn"
-            type="button"
-            onclick="location.href='item_list.html'"
-          >
-            <span>トップ画面を表示する</span>
-          </button>
-        </div>
+        <form th:action="@{/showList}" method="get">
+          <div class="row order-finished-btn">
+            <button class="btn" type="submit">
+              <span>トップ画面を表示する</span>
+            </button>
+          </div>
+        </form>
       </div>
       <!-- end container -->
     </div>
     <!-- end top-wrapper -->
     <footer>
       <div class="container">
-        <img src="img/header_logo.png" />
+        <img th:src="@{/img/header_logo.png}" />
         <p>アロハな気分をあなたにお届け！</p>
       </div>
     </footer>

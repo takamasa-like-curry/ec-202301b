@@ -1,6 +1,5 @@
 package com.example.form;
 
-
 /**
  * ログイン情報を取得するフォーム.
  * 
@@ -13,10 +12,12 @@ public class LoginForm {
 	private String email;
 	/** パスワード */
 	private String password;
+	/** 遷移キー */
+	private String key;
 
 	@Override
 	public String toString() {
-		return "LoginForm [email=" + email + ", password=" + password + "]";
+		return "LoginForm [email=" + email + ", password=" + password + ", key=" + key + "]";
 	}
 
 	public String getEmail() {
@@ -33,6 +34,14 @@ public class LoginForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

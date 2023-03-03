@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -96,6 +97,7 @@ public class OrderRepository {
 		findByUserIdAndStatusSql.append(" user_id = :userId");
 		findByUserIdAndStatusSql.append(" AND");
 		findByUserIdAndStatusSql.append(" status = :status");
+		findByUserIdAndStatusSql.append(" ORDER BY id DESC");
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
 
@@ -128,4 +130,41 @@ public class OrderRepository {
 		return order;
 
 	}
+
+	public void updateUserId(Integer tentativeUserId, Integer userId) {
+		StringBuilder updateUserIdSql = new StringBuilder();
+		updateUserIdSql.append("UPDATE " + TABLE_NAME);
+		updateUserIdSql.append(" SET");
+		updateUserIdSql.append(" user_id = :userId");
+		updateUserIdSql.append(" WHERE user_id = :tentativeUserId");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("tentativeUserId",
+				tentativeUserId);
+
+		template.update(updateUserIdSql.toString(), param);
+
+	}
+
+	public void update(Order order) {
+		StringBuilder updateSql = new StringBuilder();
+		updateSql.append("UPDATE " + TABLE_NAME);
+		updateSql.append(" SET");
+		updateSql.append(" user_id = :userId,");
+		updateSql.append(" status = :status,");
+		updateSql.append(" total_price = :totalPrice,");
+		updateSql.append("order_date = :orderDate,");
+		updateSql.append("destination_name = :destinationName,");
+		updateSql.append("destination_email = :destinationEmail,");
+		updateSql.append("destination_zipcode = :destinationZipcode,");
+		updateSql.append("destination_address = :destinationAddress,");
+		updateSql.append("destination_tel = :destinationTel,");
+		updateSql.append("delivery_time = :deliveryTime,");
+		updateSql.append("payment_method = :paymentMethod");
+		updateSql.append(" WHERE id = :id");
+
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+
+		template.update(updateSql.toString(), param);
+	}
+
 }

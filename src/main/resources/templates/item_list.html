@@ -17,7 +17,7 @@
       rel="stylesheet"
     />
 
-  	 <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/footer.css}" />
     <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
@@ -38,18 +38,19 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html" th:href="@{/showList}">
+            <a href="top.html" th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
-             <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.administrator.name">ユーザー</span>さんナマステ！</span>
+             <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
             <span class="show-name" sec:authorize="!isAuthenticated()">ゲストさんナマステ！</span>
           </div>
 
           <div class="header-right">
-            <a href="item_list.html" th:href="@{/showList}">商品一覧</a>
-            <a href="register_admin.html" th:href="@{/registerUser}">会員登録</a>
+            <a href="item_list.html" th:href="@{/}">商品一覧</a>
+            <a href="register_admin.html" th:href="@{/registerUser}"
+              >会員登録</a
+            >
             <a href="cart_list.html" th:href="@{/cart/showCartList}">
-
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
             <a href="login.html" th:href="@{/loginAndLogout}" class="login">
@@ -64,15 +65,21 @@
     <!-- search form -->
     <div class="search-wrapper">
       <div class="container">
-      <div th:if="${message}" >
-      <p class="message" th:text="${message}">該当商品がありません</p>
-      </div>
-        <form th:action="@{/showList}" name="name" class="search-form"  >
-          <input type="text" name="name" class="search-name-input" id="searchItem"  autocomplete="name" list="itemList"/>
-				<datalist id="itemList">
-				<option th:each="item:${itemList}" th:value=${item.name}>
-				</option>
-				</datalist>
+        <div th:if="${message}">
+          <p class="message" th:text="${message}">該当商品がありません</p>
+        </div>
+        <form th:action="@{/showList}" name="name" class="search-form">
+          <input
+            type="text"
+            name="name"
+            class="search-name-input"
+            id="searchItem"
+            autocomplete="name"
+            list="itemList"
+          />
+          <datalist id="itemList">
+            <option th:each="item:${itemList}" th:value="${item.name}"></option>
+          </datalist>
           <button class="btn search-btn" type="submit">
             <span>検　索</span>
           </button>
@@ -84,24 +91,34 @@
     <div class="item-wrapper">
       <div class="container">
         <div class="items">
-        
-        <div th:each="item:${itemList}">
-          <div class="item">
-            <div class="item-icon">
-              <img th:src="@{/img/}+${item.imagePath}">
+          <div th:each="item:${itemList}">
+            <div class="item">
+              <div class="item-icon">
+                <img th:src="@{/img/}+${item.imagePath}" />
+              </div>
+              <a
+                th:href="@{'/showDetail?id='+${item.id}}"
+                th:text="${item.name}"
+                >カレー</a
+              ><br />
+              <span>
+                <span class="price">Ｍ</span
+                ><span
+                  th:text="${#numbers.formatInteger(item.priceM, 1, 'COMMA')}"
+                ></span
+                >円(税抜)<br />
+                <span class="price">Ｌ</span
+                ><span
+                  th:text="${#numbers.formatInteger(item.priceL, 1, 'COMMA')}"
+                ></span
+                >円(税抜)<br />
+              </span>
             </div>
-            <a th:href="@{'/showDetail?id='+${item.id}}"
-            th:text="${item.name}">カレー</a><br />
-            <span>
-          <span class="price">Ｍ</span><span th:text="${item.priceM}"></span>円(税抜)<br />
-          <span class="price">Ｌ</span><span th:text="${item.priceL}"></span>円(税抜)<br />
-           </span>
           </div>
-         </div>
         </div>
-       </div>
       </div>
-        
+    </div>
+
     <footer>
       <div class="container">
         <img src="img/header_logo.png" />
@@ -109,6 +126,17 @@
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script th:src="@{/js/paginathing.js}"></script>
+    <script type="text/javascript">
+      $(function () {
+        $(".items").paginathing({
+          perPage: 9,
+          prevText: "前へ",
+          nextText: "次へ",
+        });
+      });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

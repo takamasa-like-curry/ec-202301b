@@ -38,15 +38,15 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/showList}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
-            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.administrator.name">ユーザー</span>さんナマステ！</span>
+            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
             <span class="show-name" sec:authorize="!isAuthenticated()">ゲストさんナマステ！</span>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/showList}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a th:href="@{/registerUser}">会員登録</a>
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
@@ -95,11 +95,11 @@
                         &nbsp;&nbsp;
                         <span
                           th:if="${orderItem.size} == 'M'"
-                          th:text="${orderItem.item.priceM} + '円'"
+                          th:text="${#numbers.formatInteger(orderItem.item.priceM, 1, 'COMMA')} + '円'"
                         ></span>
                         <span
                           th:if="${orderItem.size} == 'L'"
-                          th:text="${orderItem.item.priceL} + '円'"
+                          th:text="${#numbers.formatInteger(orderItem.item.priceL, 1, 'COMMA')} + '円'"
                         ></span>
                         &nbsp;&nbsp;
                         <span th:text="${orderItem.quantity}"></span>
@@ -127,7 +127,7 @@
                       <td>
                         <div
                           class="text-center"
-                          th:text="${orderItem.subTotal} + '円'"
+                          th:text="${#numbers.formatInteger(orderItem.subTotal, 1, 'COMMA')} + '円'"
                         >
                           アイテム小計
                         </div>
@@ -155,14 +155,19 @@
           </div>
 
           <div class="row cart-total-price">
-            <div th:text="'消費税：' + ${order.tax} + '円'">
+            <div
+              th:text="'消費税：' + ${#numbers.formatInteger(order.tax, 1, 'COMMA')} + '円'"
+            >
               消費税：8,000円
             </div>
-            <div th:text="'ご注文金額合計：' + ${order.calcTotalPrice} + '円'">
+            <div
+              th:text="'ご注文金額合計：' + ${#numbers.formatInteger(order.calcTotalPrice, 1, 'COMMA')} + '円'"
+            >
               ご注文金額合計：38,000円 (税込)
             </div>
           </div>
           <form th:action="@{/orderConfirm}" method="get">
+            <input type="hidden" name="key" th:value="${key}" />
             <div class="row order-confirm-btn">
               <button
                 class="btn"
@@ -182,7 +187,7 @@
     <footer>
       <div class="container">
         <img th:src="@{/img/header_logo.png}" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <p>ピリッとスパイシーな気分をあなたにお届け！</p>
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
