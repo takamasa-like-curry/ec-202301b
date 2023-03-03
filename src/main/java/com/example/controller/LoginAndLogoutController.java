@@ -51,12 +51,12 @@ public class LoginAndLogoutController {
 
 		session.setAttribute("user", user);
 
-		return "forward:/showList";
+		return "redirect:/showList";
 	}
 
 	@GetMapping("/logout")
 	public String logout() {
 		session.removeAttribute(null);
-		return "forward:/showList";
+		return "redirect:/showList";
 	}
 }

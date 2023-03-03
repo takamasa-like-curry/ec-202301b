@@ -5,13 +5,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Order;
+import com.example.repository.OrderRepository;
 import com.example.domain.OrderItem;
 import com.example.domain.OrderTopping;
 import com.example.repository.ItemRepository;
 import com.example.repository.OrderItemRepository;
-import com.example.repository.OrderRepository;
 import com.example.repository.OrderToppingRepository;
 import com.example.repository.ToppingRepository;
+
+/**
+ * カート操作の業務処理を行うクラス.
+ * 
+ * @author sugaharatakamasa
+ *
+ */
 
 @Service
 @Transactional

@@ -17,43 +17,52 @@ public class ItemRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+	@Autowired
+	private static final String TABLE_NAME = "items";
+
 	/**
-	 * Item	オブジェクトを生成するローマッパー.
+	 * Item オブジェクトを生成するローマッパー.
 	 */
-	private static final RowMapper<Item> ITEM_ROW_MAPPER=new BeanPropertyRowMapper<>(Item.class);
-	
-	
+	private static final RowMapper<Item> ITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(Item.class);
+
 	/**
 	 * 商品に一覧を表示します
-	 * @return　一覧情報
+	 * 
+	 * @return 一覧情報
 	 */
-	public List<Item> findAll(){
-		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted From items ORDER BY price_m ASC;";
-		List<Item> itemList=template.query(sql, ITEM_ROW_MAPPER);
+	public List<Item> findAll() {
+		String sql = "SELECT id,name,description,price_m,price_l,image_path,deleted From items ORDER BY price_m ASC;";
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
+
 	/**
 	 * 商品の名前を曖昧検索します.
+	 * 
 	 * @param name
-	 * @return　曖昧検索後の一覧情報
+	 * @return 曖昧検索後の一覧情報
 	 */
-	public List<Item> findByName(String name){
-		
-		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE name LIKE :name ORDER BY price_m ASC;";
-		SqlParameterSource param=new MapSqlParameterSource().addValue("name","%"+name+"%");
-		List<Item> itemList=template.query(sql,param,ITEM_ROW_MAPPER);
+	public List<Item> findByName(String name) {
+
+		String sql = "SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE name LIKE :name ORDER BY price_m ASC;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + name + "%");
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
-	/**
-	 * 商品を主キー検索します.
-	 * @param id
-	 * @return　 商品情報
-	 */
-	public Item load(Integer id){
-		String sql="SELECT id,name,description,price_m,price_l,image_path,deleted FROM items WHERE id=:id;";
-		SqlParameterSource param=new MapSqlParameterSource().addValue("id",id);
-		Item item=template.queryForObject(sql, param,ITEM_ROW_MAPPER);
+
+	public Item load(Integer id) {
+		StringBuilder loadByIdSql = new StringBuilder();
+		loadByIdSql.append("SELECT");
+		loadByIdSql.append(" id,name,description,price_m,price_l,image_path,deleted");
+		loadByIdSql.append(" FROM " + TABLE_NAME);
+		loadByIdSql.append(" WHERE id = :id");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+
+		Item item = template.queryForObject(loadByIdSql.toString(), param, ITEM_ROW_MAPPER);
+
 		return item;
+
 	}
+
 }

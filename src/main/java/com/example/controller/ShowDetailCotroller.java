@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
+import com.example.form.AddItemForm;
 import com.example.service.ShowDetailService;
 
 /**
  * 詳細画面を表示するコントローラ.
+ * 
  * @author watanabe
  *
  */
@@ -19,17 +21,18 @@ import com.example.service.ShowDetailService;
 public class ShowDetailCotroller {
 	@Autowired
 	private ShowDetailService showDetailService;
-	
+
 	/**
 	 * 詳細を表示するコントローラ.
+	 * 
 	 * @param model
 	 * @param id
-	 * @return　idで検索したアイテム
+	 * @return idで検索したアイテム
 	 */
 	@GetMapping("/showDetail")
-	public String showDetail(Model model,Integer id) {
-		Item item=showDetailService.showDetailItem(id);
-		model.addAttribute("item",item);
+	public String showDetail(Model model, Integer id,AddItemForm form) {
+		Item item = showDetailService.showDetailItem(id);
+		model.addAttribute("item", item);
 		return "item_detail";
 	}
 }
