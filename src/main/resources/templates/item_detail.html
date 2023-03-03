@@ -37,13 +37,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/showList}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/showList}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a th:href="@{/registerUser}">会員登録</a>
             <a th:href="@{/cart/showCartList}">
               <i class="fas fa-shopping-cart"> </i>カート
@@ -92,11 +92,11 @@
                   />
                   <span>
                     &nbsp;<span class="price">Ｍ</span>&nbsp;&nbsp;<span
-                      th:text="${item.priceM}"
-                      id="priceM"
+                      th:text="${#numbers.formatInteger(item.priceM, 1, 'COMMA')}"
                     ></span
                     >円(税抜)
                   </span>
+                  <div hidden th:text="${item.priceM}" id="priceM"></div>
                 </label>
                 <label>
                   <input
@@ -109,11 +109,11 @@
                   />
                   <span>
                     &nbsp;<span class="price">Ｌ</span>&nbsp;&nbsp;<span
-                      th:text="${item.priceL}"
-                      id="priceL"
+                      th:text="${#numbers.formatInteger(item.priceL, 1, 'COMMA')}"
                     ></span
                     >円(税抜)
                   </span>
+                  <div hidden th:text="${item.priceL}" id="priceL"></div>
                 </label>
               </div>
             </div>
