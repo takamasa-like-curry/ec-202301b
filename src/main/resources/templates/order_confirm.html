@@ -179,7 +179,7 @@
                   th:field="*{destinationZipcode}"
                 />
                 <label for="zipcode">郵便番号 (例)123-4567</label>
-                <button class="btn" type="button">
+                <button id="get_address_btn" type="button">
                   <span>住所検索</span>
                 </button>
               </div>
@@ -343,10 +343,12 @@
     <footer>
       <div class="container">
         <img src="img/header_logo.png" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <p>ピリッとスパイシーな気分をあなたにお届け！</p>
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script th:src="@{/js/get_address.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
