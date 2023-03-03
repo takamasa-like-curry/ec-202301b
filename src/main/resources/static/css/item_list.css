@@ -95,6 +95,7 @@
 .item {
   flex: 0 0 320px; /* paddingやborder含むitem全体の横幅を320pxにする */
   padding: 20px;
+
 }
 
 .item-icon img {
