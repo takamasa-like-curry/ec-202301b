@@ -37,13 +37,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/showList}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/showList}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a th:href="@{/registerUser}">会員登録</a>
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
@@ -155,10 +155,14 @@
           </div>
 
           <div class="row cart-total-price">
-            <div th:text="'消費税：' + ${#numbers.formatInteger(order.tax, 1, 'COMMA')} + '円'">
+            <div
+              th:text="'消費税：' + ${#numbers.formatInteger(order.tax, 1, 'COMMA')} + '円'"
+            >
               消費税：8,000円
             </div>
-            <div th:text="'ご注文金額合計：' + ${#numbers.formatInteger(order.calcTotalPrice, 1, 'COMMA')} + '円'">
+            <div
+              th:text="'ご注文金額合計：' + ${#numbers.formatInteger(order.calcTotalPrice, 1, 'COMMA')} + '円'"
+            >
               ご注文金額合計：38,000円 (税込)
             </div>
           </div>
