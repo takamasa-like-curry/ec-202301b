@@ -18,3 +18,11 @@
 	display: flex;
 	justify-content: center;
 }
+
+.error-image {
+	height: 574px;
+	width: 1138px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 20px;
+}
