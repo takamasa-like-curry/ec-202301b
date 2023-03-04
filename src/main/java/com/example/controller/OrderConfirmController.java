@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Order;
-import com.example.domain.User;
+//import com.example.domain.User;
 import com.example.form.OrderForm;
 import com.example.service.OrderConfirmService;
 
-import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpSession;
 
 /**
  * 注文確認画面表示の機能を制御するコントローラ.
@@ -23,8 +23,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/orderConfirm")
 public class OrderConfirmController {
 
-	@Autowired
-	private HttpSession session;
+//	@Autowired
+//	private HttpSession session;
 	@Autowired
 	private OrderConfirmService orderConfirmService;
 	
@@ -36,16 +36,11 @@ public class OrderConfirmController {
 	 */
 	@GetMapping("")
 	public String showOrderConfirm(Integer orderId, Model model,OrderForm form,String key) {
-		User user = (User)session.getAttribute("user");
-		System.out.println("==============");
-		System.out.println("orderConfirmControllerのshowOrderConfirm");
-		System.out.println(key);
-		System.out.println("==============");
-		System.out.println("==============");
+//		User user = (User)session.getAttribute("user");
 		
-		if(user == null) {
-			return "forward:/loginAndLogout";
-		}
+//		if(user == null) {
+//			return "forward:/loginAndLogout";
+//		}
 		Order order = orderConfirmService.showOrderConfirm(orderId);
 		model.addAttribute("order", order);
 		return "order_confirm";
