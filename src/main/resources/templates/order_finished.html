@@ -32,17 +32,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>注文完了|ラクラクカリー</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a ht:href="@{/}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
-            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
           </div>
 
           <div class="header-right">
@@ -55,7 +54,7 @@
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
-            <a href="order_history.html">注文履歴</a>
+            <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>
