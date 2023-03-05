@@ -24,7 +24,6 @@ public class OrderForm {
 	@Size(max = 100, message = "文字数制限を超えています。100文字以下で入力してください")
 	private String destinationEmail;
 	/** 宛先郵便番号 */
-	@NotBlank(message = "郵便番号を入力してください")
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
 	private String destinationZipcode;
 	/** 宛先住所 */
@@ -32,7 +31,6 @@ public class OrderForm {
 	@Size(max = 200, message = "文字数制限を超えています。200文字以下で入力してください")
 	private String destinationAddress;
 	/** 宛先電話番号 */
-	@NotBlank(message = "電話番号を入力してください")
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String destinationTel;
 	/** 配達日時 */
