@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,12 +62,8 @@ public class OrderController {
 	public String order(@Validated OrderForm form, BindingResult result, Model model) {
 		System.out.println(form);
 		// 入力値チェック
+		result = addDeliveryTimeError(form, result);
 		if (result.hasErrors()) {
-
-			if (form.getDeliveryDate() != "" && form.getDeliveryTime() != null) {
-				result = addDeliveryTimeError(form, result);
-
-			}
 
 			return toOrderConfirm(form.getOrderId(), model);
 		}
@@ -95,9 +92,12 @@ public class OrderController {
 			LocalDateTime limitTime = LocalDateTime.now().withHour(15).withMinute(0).withSecond(0).withNano(0);
 			if (nowTime.isBefore(limitTime)) {
 				Integer availableTIme = nowTime.getHour() + 4;
-				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)");
+				result.addError(new FieldError("orderform", "deliveryTime",
+						"配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)"));
+//				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)");
 			} else {
-				result.rejectValue("deliveryTime", null, "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。");
+				result.addError(new FieldError("orderform", "deliveryTime", "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。"));
+//				result.rejectValue("deliveryTime", null, "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。");
 
 			}
 			return result;

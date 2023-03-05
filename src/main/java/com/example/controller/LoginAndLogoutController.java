@@ -64,7 +64,7 @@ public class LoginAndLogoutController {
 			model.addAttribute("loginMessege", true);
 		} else {
 			service.updateUserId(tentativeUserId, user.getId());
-			service.updateOrderItemId(tentativeOrderId, orderId);
+//			service.updateOrderItemId(tentativeOrderId, orderId);
 			orderId = tentativeOrderId;
 		}
 

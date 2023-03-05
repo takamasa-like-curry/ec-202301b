@@ -27,7 +27,7 @@ public class OrderConfirmController {
 	private HttpSession session;
 	@Autowired
 	private OrderConfirmService orderConfirmService;
-	
+
 	/**
 	 * 注文確認画面を表示する.
 	 * 
@@ -35,20 +35,15 @@ public class OrderConfirmController {
 	 * @return 注文確認画面
 	 */
 	@GetMapping("")
-	public String showOrderConfirm(Integer orderId, Model model,OrderForm form,String key) {
-		User user = (User)session.getAttribute("user");
-		System.out.println("==============");
-		System.out.println("orderConfirmControllerのshowOrderConfirm");
-		System.out.println(key);
-		System.out.println("==============");
-		System.out.println("==============");
-		
-		if(user == null) {
+	public String showOrderConfirm(Integer orderId, Model model, OrderForm form, String key) {
+		User user = (User) session.getAttribute("user");
+
+		if (user == null) {
 			return "forward:/loginAndLogout";
 		}
 		Order order = orderConfirmService.showOrderConfirm(orderId);
 		model.addAttribute("order", order);
 		return "order_confirm";
-		
+
 	}
 }
