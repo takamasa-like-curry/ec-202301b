@@ -1,7 +1,9 @@
-"user strict"
-$(function(){
-	$(".btn").on("click",function(){
-		console.log("OK");
-		$(".checkbox").prop('checked',true);
-	});
-});
+/*$(function () {
+  $(".select_btn").on("click", function () {
+    $(".checkbox").prop("checked", true);
+
+  });
+  $(".delete_btn").on("click", function () {
+    $(".checkbox").prop("checked", false);
+  });
+});*/

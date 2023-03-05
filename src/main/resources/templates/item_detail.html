@@ -87,7 +87,7 @@
                     name="size"
                     type="radio"
                     class="size"
-                    value="M"
+                    value="M" 
                     th:field="*{size}"
                   />
                   <span>
@@ -125,10 +125,18 @@
               </div>
              </div> 
               
-            <div class="all_select_btn">
-              <button class="btn" type="button">
+            <div >
+            <span  class="select_btn">
+              <button class="btn"  type="button">
                 <span>ALL　TOPPING!</span>
               </button>
+              </span>
+              
+              <span class="delete_btn">
+               <button  class="btn" type="button">
+                <span>DELETE　TOPPING!</span>
+              </button>
+ 			 </span>              
               <br>
               
               <span class="topping" th:each="topping:${item.toppingList}">
@@ -190,7 +198,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script th:src="@{/js/showDetail.js}"></script>
-    <script th:src="@{/js/all_select.js}"></script>
+   <!--  <script th:src="@{/js/all_select.js}"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

@@ -13,7 +13,19 @@ $(function () {
     console.log("currynum");
     calc_price();
   });
-
+    $(".select_btn").on("click", function () {
+    console.log("topping");
+     $(".checkbox").prop("checked", true);
+    calc_price();
+  });
+    $(".delete_btn").on("click", function () {
+		$(".checkbox").prop("checked", false);
+    console.log("topping");
+    calc_price();
+  });
+ 
+ 
+ 
   function calc_price() {
     let size = $(".size:checked").val();
     console.log(size);
@@ -38,4 +50,5 @@ $(function () {
     let price = (Number(size_price) + topping_price) * curry_num;
     $("#tortalPrice").text(price.toLocaleString());
   }
+
 });
