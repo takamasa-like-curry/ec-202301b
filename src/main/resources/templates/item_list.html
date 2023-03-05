@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -41,8 +45,13 @@
             <a href="top.html" th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
-             <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
-            <span class="show-name" sec:authorize="!isAuthenticated()">ゲストさんナマステ！</span>
+            <span class="show-name" sec:authorize="isAuthenticated()"
+              ><span sec:authentication="principal.user.name">ユーザー</span
+              >さんナマステ！</span
+            >
+            <span class="show-name" sec:authorize="!isAuthenticated()"
+              >ゲストさんナマステ！</span
+            >
           </div>
 
           <div class="header-right">
@@ -53,8 +62,19 @@
             <a href="cart_list.html" th:href="@{/cart/showCartList}">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
-            <a href="login.html" th:href="@{/loginAndLogout}" class="login">
+            <a
+              th:unless="${session.user}"
+              th:href="@{/loginAndLogout}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+            <a
+              th:if="${session.user}"
+              th:href="@{/loginAndLogout/logout}"
+              class="login"
+            >
+              <i class="fas fa-sign-in-alt"></i>ログアウト
             </a>
 
             <a href="order_history.html">注文履歴</a>

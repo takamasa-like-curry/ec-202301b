@@ -30,13 +30,14 @@ public class LoginAndLogoutController {
 	private HttpSession session;
 
 	@GetMapping("")
-	public String toLogin(LoginForm form,Model model, String error) {
+	public String toLogin(LoginForm form, Model model, String error) {
 		if (error != null) {
 			model.addAttribute("loginErrorMessage", "メールアドレスまたはパスワードが不正です。");
 		}
 //		String key,
 //		model.addAttribute("key", key);
 		return "login";
+
 	}
 
 //	/**
@@ -48,6 +49,7 @@ public class LoginAndLogoutController {
 //	 */
 //	@PostMapping("/login")
 //	public String login(LoginForm form, Model model) {
+
 //
 //		Integer tentativeUserId = session.getId().hashCode();
 //		User user = service.login(form, tentativeUserId);
