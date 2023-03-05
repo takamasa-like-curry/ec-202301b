@@ -39,4 +39,13 @@ public class OrderHistoryController {
 
 		return "order_history";
 	}
+	
+	@GetMapping("/detail")
+	public String showOrderHistoryDetail(Integer id, Model model) {
+		
+		Order order = orderHistoryService.showOrderHistoryDetail(id);
+		model.addAttribute(order);
+		
+		return "order_history_detail";
+	}
 }

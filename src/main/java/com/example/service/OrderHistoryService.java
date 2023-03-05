@@ -39,5 +39,17 @@ public class OrderHistoryService extends CompleteOrderService {
 		return orderList;
 
 	}
+	
+	/**
+	 * 注文IDで注文情報を取得する.
+	 * 
+	 * @param id 注文ID
+	 * @return 検索された注文情報
+	 */
+	public Order showOrderHistoryDetail(Integer id) {
+		
+		Order order = super.completeOrder(id);
+		return order;
+	}
 
 }
