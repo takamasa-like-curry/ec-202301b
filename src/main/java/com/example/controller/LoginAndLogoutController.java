@@ -49,19 +49,29 @@ public class LoginAndLogoutController {
 		User user = service.login(form, tentativeUserId);
 		if (user == null) {
 			model.addAttribute("loginErrorMessage", "メールアドレスまたはパスワードが不正です。");
-			model.addAttribute("Key",form.getKey());
+			model.addAttribute("Key", form.getKey());
 			return toLogin(form, form.getKey(), model);
 		}
 
 		session.setAttribute("user", user);
 
-		Integer orderId = service.pickUpOrderId(tentativeUserId);
+		Integer tentativeOrderId = service.pickUpOrderId(tentativeUserId);
+		Integer orderId = service.pickUpOrderId(user.getId());
 
-		
+		if (orderId != null) {
+			service.updateOrderItemId(tentativeOrderId, orderId);
+			service.deleteOrderByOrderId(tentativeOrderId);
+			model.addAttribute("loginMessege", true);
+		} else {
+			service.updateUserId(tentativeUserId, user.getId());
+			service.updateOrderItemId(tentativeOrderId, orderId);
+			orderId = tentativeOrderId;
+		}
+
 		if ("toOrderConfirm".equals(form.getKey())) {
 			return "redirect:/orderConfirm" + "?orderId=" + orderId;
 		} else if (form.getKey() == null || form.getKey() == "") {
-			return "redirect:/showList";
+			return "redirect:/";
 
 		} else {
 			throw new RuntimeException();
@@ -71,7 +81,7 @@ public class LoginAndLogoutController {
 
 	@GetMapping("/logout")
 	public String logout() {
-		session.removeAttribute(null);
-		return "redirect:/showList";
+		session.removeAttribute("user");
+		return "redirect:/";
 	}
 }

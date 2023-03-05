@@ -21,6 +21,14 @@ header {
   margin-top: 15px;
 }
 
+.show-name {
+  color: #ff6666;
+  font-weight: bold;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
 /* .header-left {
   float: left;
 } */

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.LoginForm;
+import com.example.repository.OrderItemRepository;
 import com.example.repository.OrderRepository;
 import com.example.repository.UserRepository;
 
@@ -25,6 +26,8 @@ public class LoginAndLogoutService {
 	private UserRepository userRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -53,6 +56,19 @@ public class LoginAndLogoutService {
 		} else {
 			return order.getId();
 		}
+	}
+
+	public void updateOrderItemId(Integer tentativeOrderId, Integer orderId) {
+		orderItemRepository.updateOrderId(tentativeOrderId, orderId);
+
+	}
+
+	public void updateUserId(Integer tentativeUserId, Integer userId) {
+		orderRepository.updateUserId(tentativeUserId, userId);
+	}
+
+	public void deleteOrderByOrderId(Integer orderId) {
+		orderRepository.deleteByOrderId(orderId);
 	}
 
 }

@@ -14,6 +14,13 @@
 (function ($, window, document) {
   "use strict";
 
+  const loginMessage = $("#loginMessage").val();
+  if (loginMessage == null) {
+    return;
+  } else {
+    alert("前回ログイン次の商品がカート内にあります。");
+  }
+
   const Paginator = function (element, options) {
     this.el = $(element);
     this.options = $.extend({}, $.fn.paginathing.defaults, options);

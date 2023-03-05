@@ -93,12 +93,12 @@ public class OrderController {
 		} else if (deliveryDateTime.isBefore(LocalDateTime.now().plusHours(3))) {
 			LocalDateTime nowTime = LocalDateTime.now();
 			LocalDateTime limitTime = LocalDateTime.now().withHour(15).withMinute(0).withSecond(0).withNano(0);
-			if(nowTime.isBefore(limitTime)) {
+			if (nowTime.isBefore(limitTime)) {
 				Integer availableTIme = nowTime.getHour() + 4;
-				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme +"時以降に配達が可能です。)");
+				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)");
 			} else {
 				result.rejectValue("deliveryTime", null, "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。");
-				
+
 			}
 			return result;
 		} else {

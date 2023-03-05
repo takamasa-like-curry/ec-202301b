@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
 import com.example.domain.Order;
+import com.example.domain.User;
 import com.example.form.AddItemForm;
 import com.example.service.CartService;
 import com.example.service.ShowDetailService;
@@ -89,13 +90,17 @@ public class CartController {
 	/**
 	 * ユーザーIDを取得
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public Integer pickUpUserId() {
-		String sessionId = session.getId();
-		Integer userId = sessionId.hashCode();
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			String sessionId = session.getId();
+			Integer userId = sessionId.hashCode();
+			return userId;
+		}
 
-		return userId;
+		return user.getId();
 	}
 
 	/**
