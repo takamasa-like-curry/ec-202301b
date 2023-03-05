@@ -39,14 +39,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a ht:href="@{/}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
-            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/}">商品一覧</a>
+            <a th:href="@{/showList}">商品一覧</a>
             <a th:href="@{registerUser}">会員登録</a>
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
