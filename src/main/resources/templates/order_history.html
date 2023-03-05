@@ -73,6 +73,7 @@
             <th>ご注文番号・ご注文日</th>
             <th>ご注文内容</th>
             <th>合計金額</th>
+            <th>注文詳細</th>
           </tr>
           <tr th:each="order:${orderList}">
             <td>
@@ -89,9 +90,13 @@
                 </ul>
             </td>
             <td>
-               <span th:text="${#number.formatInteger(order.totalPrice, 1, 'COMMA')}">合計金額</span>円(税込) 
+               <span th:text="${#numbers.formatInteger(order.totalPrice, 1, 'COMMA')}">合計金額</span>円(税込) 
             </td>
+            <td>
+            	<a th:href="@{/detail}">詳細</a>
+          	</td>
           </tr>
+          
         </table>
       </div>
     </div>

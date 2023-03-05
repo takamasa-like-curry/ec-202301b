@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //import com.example.domain.User;
 import com.example.form.LoginForm;
@@ -30,7 +31,7 @@ public class LoginAndLogoutController {
 	private HttpSession session;
 
 	@GetMapping("")
-	public String toLogin(LoginForm form,Model model, String error) {
+	public String toLogin(LoginForm form,Model model, @RequestParam(required = false) String error) {
 		if (error != null) {
 			model.addAttribute("loginErrorMessage", "メールアドレスまたはパスワードが不正です。");
 		}
