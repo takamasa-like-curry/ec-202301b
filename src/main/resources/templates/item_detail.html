@@ -97,7 +97,7 @@
             method="post"
           >
             <input type="hidden" name="itemId" th:value="${item.id}" />
-
+			
             <div class="row item-size">
               <div class="item-hedding">サイズ</div>
               <div class="error" th:errors="*{size}"></div>
@@ -108,7 +108,7 @@
                     name="size"
                     type="radio"
                     class="size"
-                    value="M"
+                    value="M" 
                     th:field="*{size}"
                   />
                   <span>
@@ -117,7 +117,7 @@
                     ></span
                     >円(税抜)
                   </span>
-                  <div hidden th:text="${item.priceM}" id="priceM"></div>
+                  <input type="hidden" th:value="${item.priceM}" id="priceM" name="price_m"></input>
                 </label>
                 <label>
                   <input
@@ -134,7 +134,7 @@
                     ></span
                     >円(税抜)
                   </span>
-                  <div hidden th:text="${item.priceL}" id="priceL"></div>
+                  <input type="hidden" th:value="${item.priceL}" id="priceL" name="price_l"></input>
                 </label>
               </div>
             </div>
@@ -144,6 +144,22 @@
                 <span>&nbsp;Ｍ&nbsp;</span>&nbsp;&nbsp;200円(税抜)
                 <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
               </div>
+             </div> 
+              
+            <div >
+            <span  class="select_btn">
+              <button class="btn"  type="button">
+                <span>ALL　TOPPING!</span>
+              </button>
+              </span>
+              
+              <span class="delete_btn">
+               <button  class="btn" type="button">
+                <span>DELETE　TOPPING!</span>
+              </button>
+ 			 </span>              
+              <br>
+              
               <span class="topping" th:each="topping:${item.toppingList}">
                 <label class="item-topping">
                   <input
@@ -162,7 +178,7 @@
               <div class="item-quantity-selectbox">
                 <div class="input-field col s12">
                   <select name="quantity" class="browser-default" id="currynum">
-                    <option value="" disabled selected>選択して下さい</option>
+                    
                     <option value="1" th:field="*{quantity}">1</option>
                     <option value="2" th:field="*{quantity}">2</option>
                     <option value="3" th:field="*{quantity}">3</option>
@@ -203,6 +219,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script th:src="@{/js/showDetail.js}"></script>
+   <!--  <script th:src="@{/js/all_select.js}"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

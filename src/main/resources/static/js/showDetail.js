@@ -13,7 +13,19 @@ $(function () {
     console.log("currynum");
     calc_price();
   });
-
+    $(".select_btn").on("click", function () {
+    console.log("topping");
+     $(".checkbox").prop("checked", true);
+    calc_price();
+  });
+    $(".delete_btn").on("click", function () {
+		$(".checkbox").prop("checked", false);
+    console.log("topping");
+    calc_price();
+  });
+ 
+ 
+ 
   function calc_price() {
     let size = $(".size:checked").val();
     console.log(size);
@@ -26,11 +38,11 @@ $(function () {
     let size_price = 0;
     let topping_price = 0;
     if (size == "M") {
-      size_price = $("#priceM").text();
+      size_price = $("#priceM").val();
       console.log(size_price);
       topping_price = 200 * topping_count;
     } else {
-      size_price = $("#priceL").text();
+      size_price = $("#priceL").val();
       console.log(size_price);
       topping_price = 300 * topping_count;
     }
@@ -38,4 +50,5 @@ $(function () {
     let price = (Number(size_price) + topping_price) * curry_num;
     $("#tortalPrice").text(price.toLocaleString());
   }
+
 });
