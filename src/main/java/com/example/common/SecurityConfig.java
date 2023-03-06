@@ -39,10 +39,10 @@ public class SecurityConfig {
 
 		// ログインに関する設定
 		http.formLogin().loginPage("/loginAndLogout").loginProcessingUrl("/loginAndLogout/login").failureUrl("/loginAndLogout?error=true")
-				.defaultSuccessUrl("/", false).usernameParameter("email").passwordParameter("password");
+				.defaultSuccessUrl("/toShowList", false).usernameParameter("email").passwordParameter("password");
 
 		// ログアウトに関する設定
-		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/loginAndLogout/logout")).logoutSuccessUrl("/")
 				.deleteCookies("JSESSIONID").invalidateHttpSession(true);
 
 		return http.build();
