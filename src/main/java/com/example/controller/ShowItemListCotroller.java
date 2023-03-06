@@ -12,7 +12,7 @@ import com.example.domain.Item;
 import com.example.service.ShowItemListService;
 
 /**
- * 商品一覧表示用コントローラ
+ * 商品一覧表示用コントローラ.
  * 
  * @author watanabe
  *
