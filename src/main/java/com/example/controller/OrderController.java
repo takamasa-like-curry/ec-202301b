@@ -4,20 +4,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.OrderForm;
 import com.example.service.OrderConfirmService;
 import com.example.service.OrderService;
-
-import jakarta.servlet.http.HttpSession;
 
 /**
  * 注文処理を行うクラス.
@@ -33,8 +34,6 @@ public class OrderController {
 	private OrderConfirmService orderConfirmService;
 	@Autowired
 	private OrderService orderServise;
-	@Autowired
-	private HttpSession session;
 
 	/**
 	 * 入力漏れ時に入力画面に遷移.
@@ -58,21 +57,19 @@ public class OrderController {
 	 * @return 注文完了画面
 	 */
 	@PostMapping("")
-	public String order(@Validated OrderForm form, BindingResult result, Model model) {
+	public String order(@Validated OrderForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal LoginUser loginUser) {
 		System.out.println(form);
 		// 入力値チェック
+		result = addDeliveryTimeError(form, result);
 		if (result.hasErrors()) {
-
-			if (form.getDeliveryDate() != "" && form.getDeliveryTime() != null) {
-				result = addDeliveryTimeError(form, result);
-
-			}
 
 			return toOrderConfirm(form.getOrderId(), model);
 		}
 
 		// ユーザー情報取得
-		User user = (User) session.getAttribute("user");
+//		User user = (User) session.getAttribute("user");
+		User user = loginUser.getUser();
 
 		orderServise.order(form, user.getId());
 
@@ -93,12 +90,15 @@ public class OrderController {
 		} else if (deliveryDateTime.isBefore(LocalDateTime.now().plusHours(3))) {
 			LocalDateTime nowTime = LocalDateTime.now();
 			LocalDateTime limitTime = LocalDateTime.now().withHour(15).withMinute(0).withSecond(0).withNano(0);
-			if(nowTime.isBefore(limitTime)) {
+			if (nowTime.isBefore(limitTime)) {
 				Integer availableTIme = nowTime.getHour() + 4;
-				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme +"時以降に配達が可能です。)");
+				result.addError(new FieldError("orderform", "deliveryTime",
+						"配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)"));
+//				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)");
 			} else {
-				result.rejectValue("deliveryTime", null, "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。");
-				
+				result.addError(new FieldError("orderform", "deliveryTime", "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。"));
+//				result.rejectValue("deliveryTime", null, "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。");
+
 			}
 			return result;
 		} else {

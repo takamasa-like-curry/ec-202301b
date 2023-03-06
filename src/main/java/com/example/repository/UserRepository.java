@@ -47,6 +47,17 @@ public class UserRepository {
 		return userList.get(0);
 	}
 
+	public User load(Integer userId) {
+		StringBuilder loadSql = new StringBuilder();
+		loadSql.append("SELECT");
+		loadSql.append(" id, name, email, password, zipcode, address, telephone FROM " + TABLE_NAME);
+		loadSql.append(" WHERE id = :userId");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		User user = template.queryForObject(loadSql.toString(), param, USER_ROW_MAPPER);
+		return user;
+	}
+
 	/**
 	 * ユーザー登録を実施する.
 	 * 

@@ -69,7 +69,6 @@ public class OrderItemRepository {
 		template.update(deleteSql.toString(), param);
 	}
 
-
 	// 【6】注文確認画面表示
 	/**
 	 * 注文IDから注文商品を取得する.
@@ -85,6 +84,20 @@ public class OrderItemRepository {
 		List<OrderItem> orderItemList = template.query(sql, param, ORDERITEM_ROW_MAPPER);
 
 		return orderItemList;
+	}
+
+	public void updateOrderId(Integer tentativeOrderId, Integer orderId) {
+		StringBuilder updateOrderIdSql = new StringBuilder();
+		updateOrderIdSql.append("UPDATE " + TABLE_NAME);
+		updateOrderIdSql.append(" SET");
+		updateOrderIdSql.append(" order_id = :orderId");
+		updateOrderIdSql.append(" WHERE");
+		updateOrderIdSql.append(" order_id = :tentativeOrderId");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId", orderId).addValue("tentativeOrderId",
+				tentativeOrderId);
+
+		template.update(updateOrderIdSql.toString(), param);
 	}
 
 }
