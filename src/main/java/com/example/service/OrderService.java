@@ -42,7 +42,7 @@ public class OrderService {
 		BeanUtils.copyProperties(form, order);
 
 		order.setUserId(userId);
-		order.setStatus(1); // 未入金
+		order.setStatus(4); // 配達完了
 		order.setOrderDate(new Date());
 		LocalDateTime deliveryTime = LocalDateTime.parse(form.getDeliveryDate() + "T" + form.getDeliveryTime() + ":00");
 		order.setDeliveryTime(deliveryTime);

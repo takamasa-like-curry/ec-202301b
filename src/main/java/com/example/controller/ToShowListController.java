@@ -41,7 +41,7 @@ public class ToShowListController {
 			}
 		}
 		
-		return "redirect:/";
+		return "redirect:/showList";
 
 	}
 }
