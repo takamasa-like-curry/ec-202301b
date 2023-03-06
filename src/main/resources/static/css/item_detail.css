@@ -74,3 +74,13 @@
 .item-cart-btn {
   text-align: center;
 }
+
+#topping-all {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#topping-all-btn {
+  margin-right: 10px;
+}
