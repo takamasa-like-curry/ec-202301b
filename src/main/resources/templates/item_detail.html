@@ -110,8 +110,9 @@
                     name="size"
                     type="radio"
                     class="size"
-                    value="M" 
+                    th:value="M" 
                     th:field="*{size}"
+                    th:checked="${size == sizeVal}"
                   />
                   <span>
                     &nbsp;<span class="price">Ｍ</span>&nbsp;&nbsp;<span
@@ -127,8 +128,9 @@
                     name="size"
                     type="radio"
                     class="size"
-                    value="L"
+                    th:value="L"
                     th:field="*{size}"
+                    th:checked="${size == sizeVal}"
                   />
                   <span>
                     &nbsp;<span class="price">Ｌ</span>&nbsp;&nbsp;<span
