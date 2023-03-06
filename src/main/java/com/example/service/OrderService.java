@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Order;
+import com.example.domain.OrderItem;
 import com.example.repository.OrderRepository;
 import com.example.form.OrderForm;
 
@@ -25,6 +27,8 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private OrderConfirmService orderConfirmService;
 
 	public void order(OrderForm form, Integer userId) {
 		Order order = orderRepository.load(form.getOrderId());
@@ -43,6 +47,18 @@ public class OrderService {
 		LocalDateTime deliveryTime = LocalDateTime.parse(form.getDeliveryDate() + "T" + form.getDeliveryTime() + ":00");
 		order.setDeliveryTime(deliveryTime);
 		orderRepository.update(order);
+	}
+
+	public void updateUserId(Integer orderId, Integer tentativeUserId) {
+		Order tentativeOrder = null;
+
+		Order order = orderConfirmService.showOrderConfirm(orderId);
+		tentativeOrder = orderConfirmService.showOrderConfirm(tentativeUserId);
+		List<OrderItem> tentativeOrderItemList = tentativeOrder.getOrderItemList();
+		for (OrderItem tentativeOrderItem : tentativeOrderItemList) {
+			order.getOrderItemList().add(tentativeOrderItem);
+		}
+		
 	}
 
 }

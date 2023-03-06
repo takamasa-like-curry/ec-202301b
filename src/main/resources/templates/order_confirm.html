@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -40,18 +44,31 @@
             <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
-            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
+            <span class="show-name" sec:authorize="isAuthenticated()"
+              ><span sec:authentication="principal.user.name">ユーザー</span
+              >さんナマステ！</span
+            >
           </div>
 
           <div class="header-right">
             <a th:href="@{/}">商品一覧</a>
-            <a th:href="@{/registerUser}">会員登録</a>
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/registerUser}">会員登録</a>
+            </span>
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
             >
-            <a th:href="@{/LoginAndLogout}" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログイン
-            </a>
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/loginAndLogout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログイン
+              </a>
+            </span>
+
+            <span class="header-right" sec:authorize="isAuthenticated()">
+              <a th:href="@{/loginAndLogout/logout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログアウト
+              </a>
+            </span>
 
             <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
@@ -102,10 +119,13 @@
                     <li th:each="orderTopping:${orderItem.orderToppingList}">
                       <span th:text="${orderTopping.topping.name}">商品名</span>
                       <span
-                        th:if="${orderItem.size}=='M'"
-                        th:text="${#numbers.formatInteger(orderTopping.topping.priceM, 1, 'COMMA')}"
-                        >金額</span
-                      >円
+                        th:if="${orderItem.size} == 'M'"
+                        th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA')} + '円'"
+                      ></span>
+                      <span
+                        th:if="${orderItem.size} == 'L'"
+                        th:text="${#numbers.formatInteger(orderTopping.topping.priceL,1,'COMMA')} + '円'"
+                      ></span>
                     </li>
                   </ul>
                 </td>
@@ -137,6 +157,17 @@
           </div>
         </div>
 
+        <div class="row order-confirm-btn">
+          <button
+            class="btn"
+            type="button"
+            id="input-assist"
+            th:value="${order.userId}"
+          >
+            <span>ユーザー情報を入力に使用する</span>
+          </button>
+        </div>
+
         <form th:action="@{/order}" method="post" th:object="${orderForm}">
           <input type="hidden" name="orderId" th:value="${order.id}" />
           <input
@@ -148,30 +179,34 @@
           <div class="order-confirm-delivery-info">
             <div class="row">
               <div class="error" th:errors="*{destinationName}"></div>
-              <div class="input-field">
+              <div class="input-field col s12">
                 <input
                   id="destinationName"
                   type="text"
                   th:field="*{destinationName}"
                 />
-                <label for="name">お名前</label>
+                <label for="destinationName" id="destinationName_label"
+                  >お名前</label
+                >
               </div>
             </div>
             <div class="row">
               <div class="error" th:errors="*{destinationEmail}"></div>
-              <div class="input-field">
+              <div class="input-field col s12">
                 <input
-                  id="email"
+                  id="destinationEmail"
                   type="text"
                   name="destinationEmail"
                   th:field="*{destinationEmail}"
                 />
-                <label for="email">メールアドレス</label>
+                <label for="destinationEmail" id="destinationEmail_label"
+                  >メールアドレス</label
+                >
               </div>
             </div>
             <div class="row">
               <div class="error" th:errors="*{destinationZipcode}"></div>
-              <div class="input-field">
+              <div class="input-field col s12">
                 <input
                   id="zipcode"
                   type="text"
@@ -179,7 +214,10 @@
                   name="destinationZipcode"
                   th:field="*{destinationZipcode}"
                 />
-                <label for="zipcode">郵便番号 (例)123-4567</label>
+                <label for="zipcode" id="zipcode_label"
+                  >郵便番号 (例)123-4567</label
+                >
+
                 <button id="get_address_btn" type="button">
                   <span>住所検索</span>
                 </button>
@@ -187,26 +225,28 @@
             </div>
             <div class="row">
               <div class="error" th:errors="*{destinationAddress}"></div>
-              <div class="input-field">
+              <div class="input-field col s12">
                 <input
                   id="address"
                   type="text"
                   name="destinationAddress"
                   th:field="*{destinationAddress}"
                 />
-                <label for="address">住所</label>
+                <label for="address" id="address_label">住所</label>
               </div>
             </div>
             <div class="row">
               <div class="error" th:errors="*{destinationTel}"></div>
-              <div class="input-field">
+              <div class="input-field col s12">
                 <input
-                  id="tel"
+                  id="destinationTel"
                   type="text"
                   name="destinationTel"
                   th:field="*{destinationTel}"
                 />
-                <label for="tel">電話番号 (例)03-1234-5678</label>
+                <label for="destinationTel" id="destinationTel_label"
+                  >電話番号 (例)03-1234-5678</label
+                >
               </div>
             </div>
             <div class="row order-confirm-delivery-datetime">
@@ -350,6 +390,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script th:src="@{/js/get_address.js}"></script>
+    <script th:src="@{/js/input_assist.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
