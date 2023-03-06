@@ -3,7 +3,6 @@ package com.example.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.controller.CompleteOrderService;
 import com.example.domain.Order;
 
 /**

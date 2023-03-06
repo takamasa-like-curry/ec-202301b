@@ -14,13 +14,13 @@ import com.example.service.ShowItemListService;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * 商品一覧表示用コントローラ
+ * 商品一覧表示用コントローラ.
  * 
  * @author watanabe
  *
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/showList")
 public class ShowItemListCotroller {
 	@Autowired
 	private ShowItemListService showItemListService;

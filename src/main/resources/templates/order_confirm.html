@@ -51,10 +51,12 @@
           </div>
 
           <div class="header-right">
-            <a th:href="@{/}">商品一覧</a>
+
+            <a th:href="@{/showList}">商品一覧</a>
             <span class="header-right" sec:authorize="!isAuthenticated()">
               <a th:href="@{/registerUser}">会員登録</a>
             </span>
+
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
             >
@@ -173,7 +175,7 @@
           <input
             type="hidden"
             name="totalPrice"
-            th:value="${order.TotalPrice}"
+            th:value="${order.getCalcTotalPrice()}"
           />
           <h2 class="page-title">お届け先情報</h2>
           <div class="order-confirm-delivery-info">

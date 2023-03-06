@@ -34,7 +34,7 @@ public class SecurityConfig {
 
 		// 認可に関する設定
 		http.authorizeHttpRequests()
-				.requestMatchers("/", "/showDetail", "/cart/addItem", "/cart/showCartList", "/cart/deleteItem", "/registerUser", "/registerUser/register","/loginAndLogout")
+				.requestMatchers("/", "/showList","/showDetail", "/cart/addItem", "/cart/showCartList", "/cart/deleteItem", "/registerUser", "/registerUser/register","/loginAndLogout")
 				.permitAll().anyRequest().authenticated();
 
 		// ログインに関する設定
