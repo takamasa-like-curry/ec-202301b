@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-
-  <head>
-    <!--Import Google Icon Font-->
+<head>
+<!--Import Google Icon Font-->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -29,29 +27,30 @@
     <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
     <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
     <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/error_page.css}" />
+    
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
-  </head>
-  <body>
-    <header>
+    <title>404ERROR|ラクラクカリー</title>
+</head>
+<body>
+<header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a ht:href="@{/}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
-            <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
           </div>
 
           <div class="header-right">
             <a th:href="@{/}">商品一覧</a>
-            <a th:href="@{registerUser}">会員登録</a>
+            <a th:href="@{/registerUser}">会員登録</a>
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
             >
-            <a th:href="@{/LoginAndLogout}" class="login">
+            <a th:href="@{/loginAndLogout}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
@@ -62,32 +61,20 @@
     </header>
     <div class="top-wrapper">
       <div class="container">
-        <h1 class="page-title">決済が完了しました！</h1>
-        <div class="order-finished-thanks-message">
-          <p>この度はご注文ありがとうございます。</p>
-          <p>
-            お支払い先は、お送りしたメールに記載してありますのでご確認ください。
-          </p>
-          <p>メールが届かない場合は「注文履歴」からご確認ください。</p>
+        <div class="error-explanation">
+        <h1 class="error-title">404 NOT FOUND</h1>
+          <p>申し訳ございません。お探しのページは見つかりませんでした。</p>
+            <p>以下のリンクより、再度『商品一覧ページ』にお戻りください。</p>
+          
+          <a th:href="@{/}">商品一覧ページを表示する</a>
         </div>
-        <form th:action="@{/showList}" method="get">
-          <div class="row order-finished-btn">
-            <button class="btn" type="submit">
-              <span>トップ画面を表示する</span>
-            </button>
-          </div>
-        </form>
+       </div>
       </div>
-      <!-- end container -->
-    </div>
-    <!-- end top-wrapper -->
-    <footer>
+      <footer>
       <div class="container">
         <img th:src="@{/img/header_logo.png}" />
         <p>ピリッとスパイシーな気分をあなたにお届け！</p>
       </div>
     </footer>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
+</body>
 </html>

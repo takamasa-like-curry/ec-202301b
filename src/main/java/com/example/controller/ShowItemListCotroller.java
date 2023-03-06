@@ -29,7 +29,7 @@ public class ShowItemListCotroller {
 	 * @param model モデル
 	 * @return 商品一覧に遷移します
 	 */
-	@GetMapping("/showList")
+	@GetMapping("")
 	public String showList(Model model, String name) {
 		List<Item> itemList = showItemListService.showItemList(name);
 	//アイテムリストが空だった場合
