@@ -175,7 +175,7 @@
           <input
             type="hidden"
             name="totalPrice"
-            th:value="${order.TotalPrice}"
+            th:value="${order.getCalcTotalPrice()}"
           />
           <h2 class="page-title">お届け先情報</h2>
           <div class="order-confirm-delivery-info">

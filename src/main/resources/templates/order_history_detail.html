@@ -62,7 +62,7 @@
         <h1 class="page-title">注文詳細</h1>
         <!-- table -->
         <div class="row">
-          <table class="striped">
+          <table class="striped" th:each="order:${orderList}">
             <thead>
               <tr>
                 <th class="cart-table-th">商品名</th>

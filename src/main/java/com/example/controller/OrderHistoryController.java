@@ -3,12 +3,15 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
+import com.example.domain.User;
 import com.example.service.OrderHistoryService;
 
 /**
@@ -32,20 +35,11 @@ public class OrderHistoryController {
 	 * @return 注文履歴画面
 	 */
 	@GetMapping("")
-	public String showOrderHistory(Integer userId, Model model) {
-
-		List<Order> orderList = orderHistoryService.showOrderHistory(userId);
+	public String showOrderHistory(@AuthenticationPrincipal LoginUser loginUser, Model model) {
+		User user = loginUser.getUser();
+		List<Order> orderList = orderHistoryService.showOrderHistory(user.getId());
 		model.addAttribute("orderList", orderList);
 
 		return "order_history";
-	}
-	
-	@GetMapping("/detail")
-	public String showOrderHistoryDetail(Integer id, Model model) {
-		
-		Order order = orderHistoryService.showOrderHistoryDetail(id);
-		model.addAttribute(order);
-		
-		return "order_history_detail";
 	}
 }

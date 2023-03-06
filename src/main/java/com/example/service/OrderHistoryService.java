@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,13 @@ public class OrderHistoryService extends CompleteOrderService {
 	public List<Order> showOrderHistory(Integer userId) {
 
 		List<Order> orderList = orderRepository.findByUserId(userId);
+		List<Order> newOrderList = new ArrayList<>();
 		for (Order order : orderList) {
 			order = super.completeOrder(order.getId());
+			newOrderList.add(order);
 		}
-		orderList.removeIf(order -> order.getStatus() == 0);
-
-		return orderList;
+		
+		return newOrderList;
 
 	}
 	

@@ -192,6 +192,8 @@ public class OrderRepository {
 		findByUserIdAndStatusSql.append(" FROM " + TABLE_NAME);
 		findByUserIdAndStatusSql.append(" WHERE");
 		findByUserIdAndStatusSql.append(" user_id = :userId");
+		findByUserIdAndStatusSql.append(" AND");
+		findByUserIdAndStatusSql.append(" status != 0");
 		findByUserIdAndStatusSql.append(" ORDER BY order_date DESC");
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);

@@ -51,9 +51,16 @@
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
             >
-            <a th:href="@{/loginAndLogout}" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログイン
-            </a>
+             <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/loginAndLogout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログイン
+              </a>
+            </span>
+            <span class="header-right" sec:authorize="isAuthenticated()">
+              <a th:href="@{/loginAndLogout/logout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログアウト
+              </a>
+            </span>
             <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>

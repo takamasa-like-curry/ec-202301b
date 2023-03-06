@@ -73,7 +73,6 @@
             <th>ご注文番号・ご注文日</th>
             <th>ご注文内容</th>
             <th>合計金額</th>
-            <th>注文詳細</th>
           </tr>
           <tr th:each="order:${orderList}">
             <td>
@@ -85,16 +84,13 @@
                 <span class="order-status" th:if="${order.status}==4" th:text="ご配送済みです"></span>
             </td>
             <td>
-                <ul th:each="orderItem:${orderItemList}">
+                <ul th:each="orderItem:${order.orderItemList}">
                     <li th:text="${orderItem.item.name}">注文商品名</li>
                 </ul>
             </td>
             <td>
                <span th:text="${#numbers.formatInteger(order.totalPrice, 1, 'COMMA')}">合計金額</span>円(税込) 
             </td>
-            <td>
-            	<a th:href="@{/detail}">詳細</a>
-          	</td>
           </tr>
           
         </table>
