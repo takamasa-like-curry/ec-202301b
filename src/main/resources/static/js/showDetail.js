@@ -38,11 +38,11 @@ $(function () {
     let size_price = 0;
     let topping_price = 0;
     if (size == "M") {
-      size_price = $("#priceM").text();
+      size_price = $("#priceM").val();
       console.log(size_price);
       topping_price = 200 * topping_count;
     } else {
-      size_price = $("#priceL").text();
+      size_price = $("#priceL").val();
       console.log(size_price);
       topping_price = 300 * topping_count;
     }
