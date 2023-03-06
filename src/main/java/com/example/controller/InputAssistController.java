@@ -19,11 +19,14 @@ public class InputAssistController {
 	private InputAssistSevice service;
 
 	@GetMapping("")
-	public Map<String, User> check(Integer userId) {
+	public Map<String, User> check(Integer userId,Integer key) {
 		System.out.println(userId);
 		Map<String, User> map = new HashMap<>();
 		User user = service.load(userId);
-		map.put("user", user);
+		if(key.equals(user.getEmail().hashCode())) {
+			
+			map.put("user", user);
+		}
 		return map;
 
 	}
