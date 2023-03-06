@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,12 +56,31 @@ public class RegisterUserController {
 			result.rejectValue("confirmationPassword", null, "パスワードと確認用パスワードが不一致です");
 		}
 
-		//エラーメッセージの表示・入力情報の保持
-		if(result.hasErrors()) {
+		// パスワードが堅牢条件にあっているか
+		if (registerUserForm.getPassword().length() >= 8 && registerUserForm.getPassword().length() <= 16) {
+			boolean passwordUpperCaseJudge = false;
+			boolean passwordDigitJudge = false;
+			char[] charList = registerUserForm.getPassword().toCharArray();
+			for (char letter : charList) {
+				// 大文字チェック
+				if (Character.isUpperCase(letter)) {
+					passwordUpperCaseJudge = true;
+				}
+				if (Character.isDigit(letter)) {
+					passwordDigitJudge = true;
+				}
+			}
+			if (passwordUpperCaseJudge == false || passwordDigitJudge == false) {
+				result.addError(new FieldError("registerUserForm", "password", "パスワードが条件を満たしていません。"));
+			}
+		}
+
+		// エラーメッセージの表示・入力情報の保持
+		if (result.hasErrors()) {
 			return index(model, registerUserForm);
 		}
-		
-		//ユーザー登録処理
+
+		// ユーザー登録処理
 		registerUserService.registerUser(registerUserForm);
 
 		return "redirect:/loginAndLogout";

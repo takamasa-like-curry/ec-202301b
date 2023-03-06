@@ -36,7 +36,6 @@ public class RegisterUserForm {
 	@Pattern(regexp = "^(?=.*[A-Z])[a-zA-Z0-9]{8,16}+$", message = "パスワードはアルファベットの大文字小文字、数字を全て含めて8文字以上16文字以内で設定してください")
 	private String password;
 	/** 確認用パスワード */
-	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmationPassword;
 
 	public String getLastName() {
