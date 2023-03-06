@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domain.Item;
 import com.example.domain.LoginUser;
 import com.example.domain.Order;
-import com.example.domain.User;
 import com.example.form.AddItemForm;
 import com.example.service.CartService;
 import com.example.service.ShowDetailService;

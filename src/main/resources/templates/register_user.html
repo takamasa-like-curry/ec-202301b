@@ -54,21 +54,16 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html" th:href="@{/}">商品一覧</a>
+            <a href="item_list.html" th:href="@{/showList}">商品一覧</a>
 
-<<<<<<< HEAD
-            <a th:href="@{/showList}">商品一覧</a>
-            <a th:href="@{/registerUser}">会員登録</a>
-            <a th:href="@{/loginAndLogout}" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログイン
-=======
+
             <span class="header-right" sec:authorize="!isAuthenticated()">
               <a th:href="@{/registerUser}">会員登録</a>
             </span>
 
             <a th:href="@{/cart/showCartList}">
               <i class="fas fa-shopping-cart"> </i>カート
->>>>>>> develop
+
             </a>
             <span class="header-right" sec:authorize="!isAuthenticated()">
               <a th:href="@{/loginAndLogout}" class="login">
