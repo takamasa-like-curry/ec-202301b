@@ -167,4 +167,15 @@ public class OrderRepository {
 		template.update(updateSql.toString(), param);
 	}
 
+	public void deleteByOrderId(Integer orderId) {
+		StringBuilder deleteByOrderId = new StringBuilder();
+		deleteByOrderId.append("DELETE FROM " + TABLE_NAME);
+		deleteByOrderId.append(" WHERE id = :orderId");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId", orderId);
+
+		template.update(deleteByOrderId.toString(), param);
+
+	}
+
 }
