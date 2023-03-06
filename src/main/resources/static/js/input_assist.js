@@ -7,7 +7,9 @@ $(function () {
   // ［検索］ボタンクリックで検索開始
   $("#input-assist").on("click", function () {
     const userId = $("#input-assist").val();
+    const key = $("#key").val();
     console.log(userId);
+    console.log(key);
 
     $.ajax({
       url: "http://localhost:8080/ec-202301b/input-assist",
@@ -15,6 +17,7 @@ $(function () {
       dataType: "JSON",
       data: {
         userId: userId,
+        key: key,
       },
 
       async: true,

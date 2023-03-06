@@ -64,6 +64,7 @@ public class OrderConfirmController {
 		///////////////////////////////
 
 		Order order = orderConfirmService.showOrderConfirm(orderId);
+		model.addAttribute("key",user.getEmail().hashCode());
 		model.addAttribute("order", order);
 		return "order_confirm";
 
