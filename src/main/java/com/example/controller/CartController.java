@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.form.AddItemForm;
 import com.example.service.CartService;
@@ -55,11 +57,16 @@ public class CartController {
 	 * @return ショッピングカート画面
 	 */
 	@GetMapping("/showCartList")
-	public String showCartList(Model model) {
-		Integer userId = pickUpUserId();
+	public String showCartList(Model model, @AuthenticationPrincipal LoginUser loginUser) {
+		Integer userId = null;
+		if (loginUser == null) {
+			userId = session.getId().hashCode();
+		} else {
+
+			userId = loginUser.getUser().getId();
+		}
 		Order order = service.pickUpOrder(userId);
 		model.addAttribute("order", order);
-		model.addAttribute("key", "toOrderConfirm"); // enum検討
 
 		return "cart_list";
 	}
@@ -73,29 +80,26 @@ public class CartController {
 	 * @return ショッピングカート画面
 	 */
 	@PostMapping("/addItem")
-	public String addItem(@Validated AddItemForm form, BindingResult result, Model model) {
+	public String addItem(@Validated AddItemForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal LoginUser loginUser) {
 		System.out.println(result);
 		// 入力値チェック
 		if (result.hasErrors()) {
 			return toDetail(model, form.getItemId(), form);
 		}
-		Integer userId = pickUpUserId();
+
+		Integer userId = null;
+		if (loginUser == null) {
+			userId = session.getId().hashCode();
+		} else {
+
+			userId = loginUser.getUser().getId();
+		}
 
 		service.addItem(form, userId);
+		session.setAttribute("userId", session.getId().hashCode());
 
 		return "redirect:/cart/showCartList";
-	}
-
-	/**
-	 * ユーザーIDを取得
-	 * 
-	 * @return 
-	 */
-	public Integer pickUpUserId() {
-		String sessionId = session.getId();
-		Integer userId = sessionId.hashCode();
-
-		return userId;
 	}
 
 	/**

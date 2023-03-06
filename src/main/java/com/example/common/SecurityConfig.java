@@ -34,15 +34,15 @@ public class SecurityConfig {
 
 		// 認可に関する設定
 		http.authorizeHttpRequests()
-				.requestMatchers("/", "/showDetail", "/cart/addItem", "/cart/showCartList", "/cart/deleteItem", "/registerUser", "/registerUser/register","/loginAndLogout")
+				.requestMatchers("/", "/showList","/showDetail", "/cart/addItem", "/cart/showCartList", "/cart/deleteItem", "/registerUser", "/registerUser/register","/loginAndLogout")
 				.permitAll().anyRequest().authenticated();
 
 		// ログインに関する設定
 		http.formLogin().loginPage("/loginAndLogout").loginProcessingUrl("/loginAndLogout/login").failureUrl("/loginAndLogout?error=true")
-				.defaultSuccessUrl("/", false).usernameParameter("email").passwordParameter("password");
+				.defaultSuccessUrl("/toShowList", false).usernameParameter("email").passwordParameter("password");
 
 		// ログアウトに関する設定
-		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/loginAndLogout/logout")).logoutSuccessUrl("/")
 				.deleteCookies("JSESSIONID").invalidateHttpSession(true);
 
 		return http.build();

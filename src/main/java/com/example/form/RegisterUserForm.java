@@ -33,10 +33,9 @@ public class RegisterUserForm {
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String telephone;
 	/** パスワード */
-	@Pattern(regexp = "^(?=.*[A-Z])[a-zA-Z0-9_]{8,16}+$", message = "パスワードはアルファベットの大文字小文字、数字を全て含めて8文字以上16文字以内で設定してください")
+	@Pattern(regexp = "^(?=.*[A-Z])[a-zA-Z0-9]{8,16}+$", message = "パスワードはアルファベットの大文字小文字、数字を全て含めて8文字以上16文字以内で設定してください")
 	private String password;
 	/** 確認用パスワード */
-	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmationPassword;
 
 	public String getLastName() {

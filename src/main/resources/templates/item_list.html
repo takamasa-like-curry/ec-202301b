@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -41,34 +45,50 @@
             <a href="top.html" th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
-             <span class="show-name" sec:authorize="isAuthenticated()"><span sec:authentication="principal.user.name">ユーザー</span>さんナマステ！</span>
-            <span class="show-name" sec:authorize="!isAuthenticated()">ゲストさんナマステ！</span>
-          </div>
-
-          <div class="header-right">
-            <a href="item_list.html" th:href="@{/}">商品一覧</a>
-            <a href="register_admin.html" th:href="@{/registerUser}"
-              >会員登録</a
+            <span class="show-name" sec:authorize="isAuthenticated()"
+              ><span sec:authentication="principal.user.name">ユーザー</span
+              >さんナマステ！</span
             >
-            <a href="cart_list.html" th:href="@{/cart/showCartList}">
+            <span class="show-name" sec:authorize="!isAuthenticated()"
+              >ゲストさんナマステ！</span
+            >
+          </div>
+          <div class="header-right">
+            <a href="item_list.html" th:href="@{/showList}">商品一覧</a>
+
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/registerUser}">会員登録</a>
+            </span>
+            
+            <a th:href="@{/cart/showCartList}">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
-            <a href="login.html" th:href="@{/loginAndLogout}" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログイン
-            </a>
-
+            
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/loginAndLogout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログイン
+              </a>
+            </span>
+            
+            <span class="header-right" sec:authorize="isAuthenticated()">
+              <a th:href="@{/loginAndLogout/logout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログアウト
+              </a>
+            </span>
+            
             <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>
     </header>
+
     <!-- search form -->
     <div class="search-wrapper">
       <div class="container">
         <div th:if="${message}">
           <p class="message" th:text="${message}">該当商品がありません</p>
         </div>
-        <form th:action="@{/showList}" name="name" class="search-form">
+        <form th:action="@{/}" name="name" class="search-form">
           <input
             type="text"
             name="name"
