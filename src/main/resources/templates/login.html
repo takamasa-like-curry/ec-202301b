@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="ja"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -42,22 +46,23 @@
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
-          <div class="headder-login-status">
-            <div
-              th:if="${session.user}"
-              th:text="${session.user.name} + さんこんにちは"
-            ></div>
-          </div>
 
           <div class="header-right">
             <a th:href="@{/}">商品一覧</a>
-            <a th:href="@{/registerUser}">会員登録</a>
-            <a th:href="@{/loginAndLogout}" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログイン
-            </a>
-            <a th:href="@{/loginAndLogout/logout}" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログアウト
-            </a>
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/registerUser}">会員登録</a>
+            </span>
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/loginAndLogout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログイン
+              </a>
+            </span>
+
+            <span class="header-right" sec:authorize="isAuthenticated()">
+              <a th:href="@{/loginAndLogout/logout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログアウト
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -79,7 +84,6 @@
               th:object="${loginForm}"
               method="post"
             >
-              <input type="hidden" name="key" th:value="${key}" />
               <div class="row"></div>
               <div class="row">
                 <div class="input-field col s12">
