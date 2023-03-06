@@ -54,7 +54,7 @@
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
-            <a href="order_history.html">注文履歴</a>
+            <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>
@@ -63,6 +63,7 @@
       <div class="container">
         <div class="error-explanation">
         <h1 class="error-title">ERROR</h1>
+        <img class="error-image" th:src="@{/img/TajMahal.jpeg}">
           <p>以下のいずれかの理由でシステムの操作を中断しました。</p>
             <p>・不正な操作が行われた</p>
             <p>・長い時間操作を行わなかった</p>

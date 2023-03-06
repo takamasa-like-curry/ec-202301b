@@ -54,28 +54,29 @@
             >
           </div>
           <div class="header-right">
-            <a href="item_list.html" th:href="@{/}">商品一覧</a>
+            <a href="item_list.html" th:href="@{/showList}">商品一覧</a>
 
             <span class="header-right" sec:authorize="!isAuthenticated()">
               <a th:href="@{/registerUser}">会員登録</a>
             </span>
-
+            
             <a th:href="@{/cart/showCartList}">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
+            
             <span class="header-right" sec:authorize="!isAuthenticated()">
               <a th:href="@{/loginAndLogout}" class="login">
                 <i class="fas fa-sign-in-alt"></i>ログイン
               </a>
             </span>
-
+            
             <span class="header-right" sec:authorize="isAuthenticated()">
               <a th:href="@{/loginAndLogout/logout}" class="login">
                 <i class="fas fa-sign-in-alt"></i>ログアウト
               </a>
             </span>
-
-            <a href="order_history.html">注文履歴</a>
+            
+            <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>

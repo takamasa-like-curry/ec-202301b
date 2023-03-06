@@ -54,7 +54,8 @@
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
 
-            <a href="order_history.html">注文履歴</a>
+
+            <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>
@@ -63,6 +64,7 @@
       <div class="container">
         <div class="error-explanation">
         <h1 class="error-title">404 NOT FOUND</h1>
+        <img class="error-image" th:src="@{/img/TajMahal.jpeg}">
           <p>申し訳ございません。お探しのページは見つかりませんでした。</p>
             <p>以下のリンクより、再度『商品一覧ページ』にお戻りください。</p>
           

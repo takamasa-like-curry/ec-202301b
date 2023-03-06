@@ -166,6 +166,42 @@ public class OrderRepository {
 
 		template.update(updateSql.toString(), param);
 	}
+	
+	/**
+	 * ユーザーIDで注文情報を取得する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return 検索された注文情報
+	 */
+	public List<Order> findByUserId(Integer userId) {
+
+		StringBuilder findByUserIdAndStatusSql = new StringBuilder();
+		findByUserIdAndStatusSql.append("SELECT ");
+		findByUserIdAndStatusSql.append(" id,");
+		findByUserIdAndStatusSql.append("user_id,");
+		findByUserIdAndStatusSql.append("status,");
+		findByUserIdAndStatusSql.append("total_price,");
+		findByUserIdAndStatusSql.append("order_date,");
+		findByUserIdAndStatusSql.append("destination_name,");
+		findByUserIdAndStatusSql.append("destination_email,");
+		findByUserIdAndStatusSql.append("destination_zipcode,");
+		findByUserIdAndStatusSql.append("destination_address,");
+		findByUserIdAndStatusSql.append("destination_tel,");
+		findByUserIdAndStatusSql.append("delivery_time,");
+		findByUserIdAndStatusSql.append("payment_method");
+		findByUserIdAndStatusSql.append(" FROM " + TABLE_NAME);
+		findByUserIdAndStatusSql.append(" WHERE");
+		findByUserIdAndStatusSql.append(" user_id = :userId");
+		findByUserIdAndStatusSql.append(" AND");
+		findByUserIdAndStatusSql.append(" status != 0");
+		findByUserIdAndStatusSql.append(" ORDER BY order_date DESC");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+
+		List<Order> orderList = template.query(findByUserIdAndStatusSql.toString(), param, ORDER_ROW_MAPPER);
+
+		return orderList;
+	}
 
 	public void deleteByOrderId(Integer orderId) {
 		StringBuilder deleteByOrderId = new StringBuilder();

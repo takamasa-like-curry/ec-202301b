@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -31,14 +31,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>注文完了|ラクラクカリー</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a ht:href="@{/}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
             <span class="show-name" sec:authorize="isAuthenticated()"
@@ -48,11 +48,12 @@
           </div>
 
           <div class="header-right">
-            <a th:href="@{/}">商品一覧</a>
+            <a th:href="@{/showList}">商品一覧</a>
 
             <span class="header-right" sec:authorize="!isAuthenticated()">
               <a th:href="@{/registerUser}">会員登録</a>
             </span>
+
 
             <a th:href="@{/cart/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
@@ -70,7 +71,7 @@
               </a>
             </span>
 
-            <a href="order_history.html">注文履歴</a>
+            <a th:href="@{/orderHistory}">注文履歴</a>
           </div>
         </div>
       </div>
@@ -85,7 +86,7 @@
           </p>
           <p>メールが届かない場合は「注文履歴」からご確認ください。</p>
         </div>
-        <form th:action="@{/showList}" method="get">
+        <form th:action="@{/}" method="get">
           <div class="row order-finished-btn">
             <button class="btn" type="submit">
               <span>トップ画面を表示する</span>

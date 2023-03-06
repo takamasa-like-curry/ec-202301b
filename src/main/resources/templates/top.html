@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/top.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <title>ラクラクカリー</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/top.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
     <link
       href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
       rel="stylesheet"
@@ -19,20 +19,26 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
-              <img class="logo" src="img/header_logo.png" />
+            <a href="@{/}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="cart_list.html"
+            <a th:href="@{/showList}">商品一覧</a>
+            <a th:href="@{/registerUser}">会員登録</a>
+            <a th:href="@{/showCartList}"
               ><i class="fas fa-shopping-cart"></i>カート</a
             >
-            <a href="login.html" class="login">
-              <i class="fas fa-sign-in-alt"></i>ログイン
-            </a>
+            <span class="header-right" sec:authorize="!isAuthenticated()">
+              <a th:href="@{/loginAndLogout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログイン
+              </a>
+            </span>
+            <span class="header-right" sec:authorize="isAuthenticated()">
+              <a th:href="@{/loginAndLogout/logout}" class="login">
+                <i class="fas fa-sign-in-alt"></i>ログアウト
+              </a>
           </div>
         </div>
 
@@ -45,13 +51,13 @@
 
     <div class="top-wrapper">
       <div class="container">
-        <h1>DELIVERING THE FEELINGS OF ALOHA TO YOU</h1>
-        <p>日本にいながらアロハな気分をあなたにお届け！</p>
+        <h1>DELIVERING THE FEELINGS OF SPICY TO YOU</h1>
+        <p>ピリッとスパイシーな気分をあなたにお届け！</p>
         <p>
-          ラクラクアロハは自宅にハワイアン料理がデリバリーで届くハワイアンECサイトです。
+          ラクラクカリーは自宅にカレーがデリバリーで届くカレーのECサイトです。
         </p>
         <div class="btn-wrapper">
-          <a href="register_admin.html" class="btn signup">会員登録</a>
+          <a th:href="@{/registerUser}" class="btn signup">会員登録</a>
           <p>or</p>
           <a href="#" class="btn facebook"
             ><i class="fab fa-facebook"></i>Facebookで登録</a
@@ -66,43 +72,43 @@
     <div class="top-item-wrapper">
       <div class="container">
         <div class="heading">
-          <h2>ラクラクアロハ、４つの特徴！</h2>
+          <h2>ラクラクカリー、４つの特徴！</h2>
         </div>
         <div class="top-items">
           <div class="top-item">
             <div class="top-item-icon">
-              <img src="img/1.jpg" />
-              <p>ハワイアン料理</p>
+              <img th:src="@{/img/1.jpg}" />
+              <p>本場の味を感じられるスパイシーカレー</p>
             </div>
             <p class="text-contents">
-              アロハテーブルやウルフギャング、田中オブ東京などのハワイの有名店で修行を積んだ一流シェフによる本格的なハワイアン料理が家にいてもお手軽に楽しむことができます。
+              インドでスパイスの調達から調合まで現地で修行を積んだシェフによる本格的なカレーが家にいてもお手軽に楽しむことができます。
             </p>
           </div>
           <div class="top-item">
             <div class="top-item-icon">
-              <img src="img/2.jpg" />
-              <p>スイーツも充実</p>
+              <img th:src="@{/img/7.jpg}" />
+              <p>メニューが豊富</p>
             </div>
             <p class="text-contents">
-              アイランドビンテージコーヒーやボガーツカフェのアサイボウルはもちろんのこと、最近流行りのバナンのソフトクリーム、エッグスンシングスのふわふわパンケーキなど有名店のスイーツも充実しています。
+              ゴロゴロ野菜が入ったカレーから具材がシンプルながらも旨みが凝縮したカレーまであなたの好みのカレーに出会うことができます。
             </p>
           </div>
           <div class="top-item">
             <div class="top-item-icon">
-              <img src="img/14.jpg" />
-              <p>アルコールも豊富</p>
+              <img th:src="@{/img/12.jpg}" />
+              <p>トッピングも充実</p>
             </div>
             <p class="text-contents">
-              ハワイといえばビーチでマイタイ！コナブリューイングのハワイアンコナビールなどハワイでしか飲めないアルコールも豊富にあります。
+              オニオンやカマンベールチーズはもちろんのこと、プルコギやもちなど他店では味わえないトッピングも充実しています。
             </p>
           </div>
           <div class="top-item">
             <div class="top-item-icon">
-              <img src="img/13.jpg" />
-              <p>ホテル創作料理</p>
+              <img th:src="@{/img/13.jpg}" />
+              <p>シェフ独自の創作カレー</p>
             </div>
             <p class="text-contents">
-              シェラトンワイキキ、ロイヤルハワイアン、モアナサーフライダー、アウラニに入っているレストランの創作料理も「ラクラクアロハ」なら気軽に注文できます。
+              月ごとに新しいシェフ渾身のカレーを創作しており、インドに限らず、様々な国の味を感じられるカレーを「ラクラクカレー」なら気軽に注文できます。
             </p>
           </div>
         </div>
@@ -112,17 +118,19 @@
     <div class="message-wrapper">
       <div class="container">
         <div class="heading">
-          <h2>さぁ、今すぐALOHAの旅に出よう！</h2>
-          <h3>Let's go on an Aloha trip!</h3>
+          <h2>さぁ、今すぐカレーの旅に出よう！</h2>
+          <h3>Let's go on an Curry trip!</h3>
         </div>
-        <span class="btn message">ALOHAの旅に出る！</span>
+        <form th:action="@{/showList}" method="get">
+        <button class="btn message">カレーの旅に出る！</button>
+        </form>
       </div>
     </div>
 
     <footer>
       <div class="container">
-        <img src="img/header_logo.png" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <img th:src="@{/img/header_logo.png}" />
+        <p>ピリッとスパイシーな気分をあなたにお届け！</p>
       </div>
     </footer>
   </body>
