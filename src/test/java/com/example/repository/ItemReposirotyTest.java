@@ -35,7 +35,10 @@ public class ItemReposirotyTest {
 	public void loadTest() {
 		System.out.println("主キー検索のテストを開始します。");
 		Integer id = 10;
+		
 		Item resultItem = itemRepository.load(id);
+		
+		
 		assertEquals(resultItem.getId(), 10, "主キー検索を取得したitemのIDが異なります。");
 		assertEquals(resultItem.getName(), "ほうれん草のカレードリア", "主キー検索を取得したitemの名前が異なります。");
 		assertEquals(resultItem.getPriceM(), 2160, "主キー検索を取得したitemのMサイズ料金が異なります。");
