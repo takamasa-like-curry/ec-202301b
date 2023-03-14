@@ -13,7 +13,6 @@ create table users (
 
 
 --ユーザー登録(pass:morimori)
-insert into users(name, email, password, zipcode, address, telephone) values('田中三郎', 'tanakadesu@gmail.com', '$2a$10$Utoo6nr3XIFEh4xOZ9Zr1.n/PtEYBb8HhlLDDklaJwsj.T3uux4kq','105-0011', '東京都港区芝公園4-2-8', '090-0000-0000');
 
 -- 商品
 drop table if exists items cascade;

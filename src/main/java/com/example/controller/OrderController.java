@@ -76,6 +76,13 @@ public class OrderController {
 		return "redirect:/orderFinished";
 	}
 
+	/**
+	 * 注文日時チェックを行う(状況に応じてリザルトにエラーを追加)
+	 * 
+	 * @param form   注文フォーム
+	 * @param result リザルト
+	 * @return
+	 */
 	public BindingResult addDeliveryTimeError(OrderForm form, BindingResult result) {
 		// 入力値チェック(配達日時)
 		LocalDate deliveryDate = LocalDate.parse(form.getDeliveryDate());
@@ -94,10 +101,8 @@ public class OrderController {
 				Integer availableTIme = nowTime.getHour() + 4;
 				result.addError(new FieldError("orderform", "deliveryTime",
 						"配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)"));
-//				result.rejectValue("deliveryTime", null, "配達時間をご確認ください（現在、" + availableTIme + "時以降に配達が可能です。)");
 			} else {
 				result.addError(new FieldError("orderform", "deliveryTime", "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。"));
-//				result.rejectValue("deliveryTime", null, "本日の予約可能時間を過ぎています。明日以降の日時を選択してください。");
 
 			}
 			return result;

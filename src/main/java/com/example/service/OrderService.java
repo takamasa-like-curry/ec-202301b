@@ -26,6 +26,12 @@ public class OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	/**
+	 * 注文を実行する.
+	 * 
+	 * @param form   注文情報フォーム
+	 * @param userId ユーザーID
+	 */
 	public void order(OrderForm form, Integer userId) {
 		Order order = orderRepository.load(form.getOrderId());
 		BeanUtils.copyProperties(form, order);

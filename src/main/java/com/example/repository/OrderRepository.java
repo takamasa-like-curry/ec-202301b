@@ -174,6 +174,13 @@ public class OrderRepository {
 		return order;
 	}
 
+	/**
+	 * ユーザーIDとステータスからオーダー情報を取得.
+	 * 
+	 * @param userId ユーザーID
+	 * @param status ステータス
+	 * @return 該当オーダー
+	 */
 	public Order findByUserIdAndStatus(Integer userId, Integer status) {
 
 		StringBuilder findByUserIdAndStatusSql = new StringBuilder();
@@ -229,6 +236,12 @@ public class OrderRepository {
 
 	}
 
+	/**
+	 * ユーザーIDを更新する.
+	 * 
+	 * @param tentativeUserId 更新前のユーザーID
+	 * @param userId          更新後のユーザーID
+	 */
 	public void updateUserId(Integer tentativeUserId, Integer userId) {
 		StringBuilder updateUserIdSql = new StringBuilder();
 		updateUserIdSql.append("UPDATE " + TABLE_NAME);
@@ -243,6 +256,11 @@ public class OrderRepository {
 
 	}
 
+	/**
+	 * オーダー情報の更新.
+	 * 
+	 * @param order 更新する情報が入ったオーダー
+	 */
 	public void update(Order order) {
 		StringBuilder updateSql = new StringBuilder();
 		updateSql.append("UPDATE " + TABLE_NAME);

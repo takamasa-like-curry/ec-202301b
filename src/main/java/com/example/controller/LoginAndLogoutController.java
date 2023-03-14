@@ -50,8 +50,10 @@ public class LoginAndLogoutController {
 	/**
 	 * ログイン処理を行い商品一覧ページへ遷移する.
 	 * 
+	 * ゲスト時のカート操作をユーザーのカートに反映させるためのプロセス
+	 * 
 	 * @param loginUser ログインユーザー
-	 * @return
+	 * @return 商品一覧画面
 	 */
 	@GetMapping("/toShowList")
 	public String toShowList(@AuthenticationPrincipal LoginUser loginUser) {
