@@ -1,5 +1,8 @@
 "user strict";
 $(function () {
+	
+　$("#size-m").prop("checked",true)
+	
   calc_price();
   $(".size").on("change", function () {
     console.log("size");
