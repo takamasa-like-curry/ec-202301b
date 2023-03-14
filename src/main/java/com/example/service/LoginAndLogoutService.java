@@ -1,16 +1,15 @@
 package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
-import com.example.domain.User;
-import com.example.form.LoginForm;
 import com.example.repository.OrderItemRepository;
 import com.example.repository.OrderRepository;
-import com.example.repository.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * ログイン・ログアウトに関する業務を行うクラス.
@@ -23,30 +22,43 @@ import com.example.repository.UserRepository;
 public class LoginAndLogoutService {
 
 	@Autowired
-	private UserRepository userRepository;
-	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
 	private OrderItemRepository orderItemRepository;
-
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private HttpSession session;
 
-	public User login(LoginForm form, Integer tentativeUserId) {
-		User user = userRepository.findByEmail(form.getEmail());
-		if (user == null) {
-			return null;
+	/**
+	 * ログイン時に仮ユーザーIDの情報とユーザーIDの情報を統合.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @return ユーザーID
+	 */
+	public Integer loginProcess(LoginUser loginUser) {
+		Integer tentativeUserId = (Integer) session.getAttribute("userId"); // 注文時のユーザーID
+		Integer userId = loginUser.getUser().getId(); // ユーザーID
+		Integer tentativeOrderId = pickUpOrderId(tentativeUserId);
+		Integer orderId = pickUpOrderId(userId);
+		if (userId == tentativeUserId) {
+			return userId;
 		}
 
-		// ハッシュ化されたパスワードとの整合確認
-		if (passwordEncoder.matches(form.getPassword(), user.getPassword())) {
-
-			return user;
-
+		if (orderId == null) {
+			orderRepository.updateUserId(tentativeUserId, userId);
 		} else {
-			return null;
+			orderItemRepository.updateOrderId(tentativeOrderId, orderId);
+			orderRepository.deleteOrderByOrderId(tentativeOrderId); // 仮のユーザーIDで使用したorderテーブルを削除
 		}
+
+		return userId;
 	}
+
+	/**
+	 * 未注文(statusが0)のオーダーIDをユーザーIDで検索.
+	 * 
+	 * @param userId ユーザーID
+	 * @return 該当オーダーID、なければnull
+	 */
 
 	public Integer pickUpOrderId(Integer userId) {
 		Integer status = 0;
@@ -57,18 +69,4 @@ public class LoginAndLogoutService {
 			return order.getId();
 		}
 	}
-
-	public void updateOrderItemId(Integer tentativeOrderId, Integer orderId) {
-		orderItemRepository.updateOrderId(tentativeOrderId, orderId);
-
-	}
-
-	public void updateUserId(Integer tentativeUserId, Integer userId) {
-		orderRepository.updateUserId(tentativeUserId, userId);
-	}
-
-	public void deleteOrderByOrderId(Integer orderId) {
-		orderRepository.deleteByOrderId(orderId);
-	}
-
 }

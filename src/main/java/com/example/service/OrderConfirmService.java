@@ -24,7 +24,7 @@ public class OrderConfirmService extends CompleteOrderService{
 	 * @return 検索された注文情報
 	 */
 	public Order showOrderConfirm(Integer id) {
-
+		
 		Order order = super.completeOrder(id);
 
 		return order;

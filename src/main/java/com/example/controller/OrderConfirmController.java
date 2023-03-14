@@ -9,13 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.LoginUser;
 import com.example.domain.Order;
-import com.example.domain.User;
-//import com.example.domain.User;
 import com.example.form.OrderForm;
+import com.example.service.CartService;
 import com.example.service.LoginAndLogoutService;
-import com.example.service.OrderConfirmService;
 
-import jakarta.servlet.http.HttpSession;
 
 //import jakarta.servlet.http.HttpSession;
 
@@ -30,11 +27,9 @@ import jakarta.servlet.http.HttpSession;
 public class OrderConfirmController {
 
 	@Autowired
-	private HttpSession session;
-	@Autowired
-	private OrderConfirmService orderConfirmService;
-	@Autowired
 	private LoginAndLogoutService loginAndLogoutService;
+	@Autowired
+	private CartService cartService;
 
 	/**
 	 * 注文確認画面を表示する.
@@ -44,28 +39,11 @@ public class OrderConfirmController {
 	 */
 	@GetMapping("")
 	public String showOrderConfirm(Model model, OrderForm form, @AuthenticationPrincipal LoginUser loginUser) {
-		////////////////////////////
-		User user = loginUser.getUser();
-		Integer tentativeUserId = (Integer) session.getAttribute("userId");
-		Integer tentativeOrderId = loginAndLogoutService.pickUpOrderId(tentativeUserId);
-		Integer orderId = loginAndLogoutService.pickUpOrderId(user.getId());
-		if (tentativeOrderId != orderId) {
+		Integer userId = loginAndLogoutService.loginProcess(loginUser);
 
-			if (orderId != null) {
-				loginAndLogoutService.updateOrderItemId(tentativeOrderId, orderId);
-				loginAndLogoutService.deleteOrderByOrderId(tentativeOrderId);
-			} else {
-				loginAndLogoutService.updateUserId(tentativeUserId, user.getId());
-//			service.updateOrderItemId(tentativeOrderId, orderId);
-				orderId = tentativeOrderId;
-			}
-		}
-
-		///////////////////////////////
-
-		Order order = orderConfirmService.showOrderConfirm(orderId);
-		model.addAttribute("key",user.getEmail().hashCode());
+		Order order = cartService.pickUpOrder(userId);
 		model.addAttribute("order", order);
+		model.addAttribute("key", loginUser.getUser().getEmail().hashCode());
 		return "order_confirm";
 
 	}

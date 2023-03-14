@@ -86,6 +86,12 @@ public class OrderItemRepository {
 		return orderItemList;
 	}
 
+	/**
+	 * オーダーIDの変更を行う.
+	 * 
+	 * @param tentativeOrderId 変更するオーダーID
+	 * @param orderId          変更後のオーダーID
+	 */
 	public void updateOrderId(Integer tentativeOrderId, Integer orderId) {
 		StringBuilder updateOrderIdSql = new StringBuilder();
 		updateOrderIdSql.append("UPDATE " + TABLE_NAME);

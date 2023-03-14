@@ -77,10 +77,9 @@
     </header>
     <div class="top-wrapper">
       <div class="container">
-        <div id="cart-info" th:if="${order.orderItemList.size} == 0">
-          <span>カートに商品が入っていません。</span>
+        <div id="cart-info" th:if="${notItemMessage}" th:text="${notItemMessage}">
         </div>
-        <div th:unless="${order.orderItemList.size} == 0">
+        <div th:unless="${notItemMessage}">
           <h1 class="page-title">ショッピングカート</h1>
           <!-- table -->
           <div class="row">
@@ -122,8 +121,8 @@
                       </td>
                       <td>
                         <ul>
-                          <div
-                            th:each="orderTopping : ${orderItem.orderToppingList}"
+                        <div th:unless="${orderItem.orderToppingList.size} == 0">
+                          <div th:each="orderTopping : ${orderItem.orderToppingList}"
                           >
                             <li>
                               <span
@@ -140,6 +139,7 @@
                               ></span>
                             </li>
                           </div>
+                        </div>
                         </ul>
                       </td>
                       <td>
@@ -151,11 +151,6 @@
                         </div>
                       </td>
                       <td>
-                        <input
-                          type="hidden"
-                          name="index"
-                          th:value="${status.index}"
-                        />
                         <button
                           class="btn"
                           type="submit"

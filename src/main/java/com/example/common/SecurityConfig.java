@@ -39,7 +39,7 @@ public class SecurityConfig {
 
 		// ログインに関する設定
 		http.formLogin().loginPage("/loginAndLogout").loginProcessingUrl("/loginAndLogout/login").failureUrl("/loginAndLogout?error=true")
-				.defaultSuccessUrl("/toShowList", false).usernameParameter("email").passwordParameter("password");
+				.defaultSuccessUrl("/loginAndLogout/toShowList", false).usernameParameter("email").passwordParameter("password");
 
 		// ログアウトに関する設定
 		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/loginAndLogout/logout")).logoutSuccessUrl("/")

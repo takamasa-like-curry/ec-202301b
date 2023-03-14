@@ -58,14 +58,12 @@ public class CartController {
 	 */
 	@GetMapping("/showCartList")
 	public String showCartList(Model model, @AuthenticationPrincipal LoginUser loginUser) {
-		Integer userId = null;
-		if (loginUser == null) {
-			userId = session.getId().hashCode();
-		} else {
+		Integer userId = pickUpOrderId(loginUser);
 
-			userId = loginUser.getUser().getId();
-		}
 		Order order = service.pickUpOrder(userId);
+		if (order == null) {
+			model.addAttribute("notItemMessage", "カートに商品が入っていません。");
+		}
 		model.addAttribute("order", order);
 
 		return "cart_list";
@@ -88,13 +86,7 @@ public class CartController {
 			return toDetail(model, form.getItemId(), form);
 		}
 
-		Integer userId = null;
-		if (loginUser == null) {
-			userId = session.getId().hashCode();
-		} else {
-
-			userId = loginUser.getUser().getId();
-		}
+		Integer userId = pickUpOrderId(loginUser);
 
 		service.addItem(form, userId);
 		session.setAttribute("userId", session.getId().hashCode());
@@ -113,6 +105,20 @@ public class CartController {
 
 		service.deleteOrderItem(deleteItemId);
 		return "redirect:/cart/showCartList";
+	}
+
+	/**
+	 * ユーザーIDを取得.
+	 * 
+	 * @param loginUser ログインユーザー
+	 * @return ログイン時はログインしているユーザーのID。未ログイン時は、仮ユーザーID
+	 */
+	public Integer pickUpOrderId(LoginUser loginUser) {
+		if (loginUser == null) {
+			return session.getId().hashCode();
+		} else {
+			return loginUser.getUser().getId();
+		}
 	}
 
 }
