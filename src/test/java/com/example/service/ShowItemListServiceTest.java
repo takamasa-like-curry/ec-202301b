@@ -45,8 +45,19 @@ public class ShowItemListServiceTest {
 		System.out.println("商品一覧表示のテストのテストを開始します(name == nameの場合)");
 
 		showItemListService.showItemList("name");
-		System.out.println("成功");
 		Mockito.verify(itemRepository, times(1)).findByName("name");
+		System.out.println("成功");
+		System.out.println("テストを終了します。");
+
+	}
+
+	@Test
+	public void showItemListTest() {
+		System.out.println("商品一覧表示のテストのテストを開始します(name == nameの場合)");
+
+		showItemListService.showItemList(null);
+		Mockito.verify(itemRepository, times(1)).findAll();
+		System.out.println("成功");
 		System.out.println("テストを終了します。");
 
 	}

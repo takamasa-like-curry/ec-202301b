@@ -64,6 +64,15 @@ public class LoginAndLogoutServiceTest {
 	}
 
 	@Test
+	public void loginProcessTest() {
+		Mockito.when(session.getAttribute("userId")).thenReturn(1);
+
+		Integer result = service.loginProcess(loginUser);
+
+		assertEquals(result, 1, "ログインプロセスにてエラーが発生しています。");
+	}
+
+	@Test
 	public void loginProcessTest2() {
 		System.out.println("loginProcessTest2開始");
 		Mockito.when(session.getAttribute("userId")).thenReturn(123);
